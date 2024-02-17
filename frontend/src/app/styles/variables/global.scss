@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800&display=swap');
+
+
+:root {
+    --font-size-base: 14px;
+    --border-radius: 12px;
+    --font-family-base: "Montserrat", sans-serif;
+
+    --bg-color: #1c1c28;
+
+    // dark and light color
+    --ligth-base: #f2f2f5;
+    --ligth-lighter: #fafafc;
+    --ligth-darker: #ebebf0;
+
+    --dark-base: #555770;
+    --dark-lighter: #8f90a6;
+    --dark-darker: #28293d;
+
+    // text for dark theme
+    --text-color: #555770;
+    --text-color-l: #8f90a6;
+    --text-color-d: #28293d;
+
+    // elements blue
+    --el-primary-blue: #3e7bfa;
+    --el-primary-blue-l: #6698ff;
+    --el-primary-blue-d: #3568d4;
+
+    // elements green
+    --el-primary-green: #39d98a;
+    --el-primary-green-l: #57eba1;
+    --el-primary-green-d: #06c270;
+
+    // elements red
+    --el-primary-red: #ff5c5c;
+    --el-primary-red-l: #ff8080;
+    --el-primary-red-d: #ff3b3b;
+
+    // elements orange
+    --el-primary-orange: #fdac42;
+    --el-primary-orange-l: #fccc75;
+    --el-primary-orange-d: #ff8800;
+
+    // elements yellow
+    --el-primary-yellow: #fddd48;
+    --el-primary-yellow-l: #fded72;
+    --el-primary-yellow-d: #ffcc00;
+
+    // elements teal
+    --el-primary-teal: #73dfe7;
+    --el-primary-teal-l: #a9eff2;
+    --el-primary-teal-d: #00cfde;
+
+    // elements purple
+    --el-primary-purple: #ac5dd9;
+    --el-primary-purple-l: #dda5e9;
+    --el-primary-purple-d: #6600cc;
+}
+
+html {
+    height: 100%;
+    font-size: var(--font-size-base);
+}
+
+body {
+    font-family: var(--font-family-base);
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    min-height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

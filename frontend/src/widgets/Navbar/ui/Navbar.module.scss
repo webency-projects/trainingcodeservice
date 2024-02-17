@@ -1,0 +1,38 @@
+.Navbar {
+    position: absolute;
+    height: 2.5rem;
+    z-index: 997;
+    left: 0;
+    top: 0;
+    right: 0;
+    padding: 0 2rem;
+    background-color: var(--dark-darker);
+    transition: left .3s;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 3px 5px rgba(0,0,0,.02),
+    0 0 2px rgba(0,0,0,.05),
+    0 1px 4px rgba(0,0,0,.08);
+
+    .navbarLogo {
+        display: flex;
+        align-items: center;
+        color: var(--el-primary-green-l);
+        font-size: 1.4rem;
+        font-weight: 400;
+        gap: 1rem;
+        img {
+            height: 2.5rem;
+            margin-right: .5rem;
+        }
+    }
+
+    .navbarMenu {
+        margin: 0 0 0 auto;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        gap: 1rem;
+    }
+}
+

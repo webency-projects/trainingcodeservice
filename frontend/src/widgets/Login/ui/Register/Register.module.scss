@@ -1,0 +1,13 @@
+.Register {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.fieldGroup {
+    width: 100%;
+    p {
+        padding: .5rem;
+    }
+}

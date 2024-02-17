@@ -1,0 +1,13 @@
+.SignIn {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+.fieldGroup {
+    width: 100%;
+    p {
+        padding: .5rem;
+    }
+}

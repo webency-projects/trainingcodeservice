@@ -1,0 +1,24 @@
+.CoursePage {
+    background: var(--bg-color);
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+}
+
+.userPanel {
+    position: relative;
+    background: var(--dark-lighter);
+    flex: 1 0 auto;
+    display: flex;
+    padding: 4rem 1rem 1rem 4rem;
+}
+
+.contentPanel {
+    position: relative;
+    background: var(--dark-darker);
+    height: 100vh;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    user-select: none;
+}
