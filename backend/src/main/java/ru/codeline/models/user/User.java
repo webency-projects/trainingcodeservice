@@ -24,7 +24,7 @@ public class User implements UserDetails {
     private Integer id;
     private String firstName;
     private String lastName;
-    private String token;
+    private String inviteToken;
     private String email;
     private String password;
 
