@@ -1,2 +1,18 @@
 server:
   port: 5000
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5332/codelinedb
+    username: codeline
+    password: codeline
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
