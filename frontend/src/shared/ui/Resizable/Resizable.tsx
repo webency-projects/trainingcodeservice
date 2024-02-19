@@ -1,5 +1,7 @@
 import {cNames} from "@shared/lib/cNames/cNames.ts";
 
+import { PiDotsSixVerticalBold, PiDotsSixBold } from "react-icons/pi";
+
 import cls from './Resizable.module.scss'
 import {ReactNode, useEffect, useRef, useState} from "react";
 
@@ -55,9 +57,9 @@ export const Resizable: React.FC<ResizableProps> = (props) => {
 
     return (
         <div className={cNames(cls.resizableContainer, {}, [direction])} style={{width: width}}>
-            {resizerPosition === 'left' && <div ref={resizerRef} className={cls.resizerV}></div>}
+            {resizerPosition === 'left' && <div ref={resizerRef} className={cls.resizerV}><PiDotsSixBold size={200} /></div>}
             {children}
-            {resizerPosition === 'right' && <div ref={resizerRef} className={cls.resizerV}></div>}
+            {resizerPosition === 'right' && <div ref={resizerRef} className={cls.resizerV}><PiDotsSixVerticalBold size={200} /></div>}
         </div>
     );
 };

@@ -12,12 +12,28 @@
         height: 10px;
         cursor: row-resize;
         background-color: var(--bg-color);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--el-primary-green-d);
+        transition: all .3s ease;
+        &:hover {
+            background-color: var(--dark-base);
+        }
     }
     .resizerV {
         width: 10px;
         height: 100%;
         cursor: col-resize;
-        background-color: var(--bg-color);;
+        background-color: var(--bg-color);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--el-primary-green-d);
+        transition: all .3s ease;
+        &:hover {
+            background-color: var(--dark-base);
+        }
     }
 }
 
