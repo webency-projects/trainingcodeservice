@@ -1,0 +1,31 @@
+.ListItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .5rem 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    margin: .5rem 1rem;
+    transition: .3s ease-in-out;
+    cursor: pointer;
+    &:hover {
+        border-left: 3px solid rgba(57, 217, 138, 0.7);
+        border-right: 3px solid rgba(57, 217, 138, 0.7);
+    }
+}
+
+.content {
+    h2 {
+        font-weight: 500;
+        font-size: 1.3rem;
+    }
+    p {
+        font-size: 1rem;
+    }
+}
+.status {
+    font-size: 1.3rem;
+    .isActive {
+        color: var(--el-primary-green-d)
+    }
+}

@@ -30,7 +30,7 @@
     // elements green
     --el-primary-green: #39d98a;
     --el-primary-green-l: #57eba1;
-    --el-primary-green-d: #06c270;
+    --el-primary-green-d: #08ad64;
 
     // elements red
     --el-primary-red: #ff5c5c;
@@ -65,7 +65,7 @@ html {
 
 body {
     font-family: var(--font-family-base);
-    color: var(--text-color);
+    color: var(--text-color-l);
     background-color: var(--bg-color);
     min-height: 100%;
     -webkit-font-smoothing: antialiased;

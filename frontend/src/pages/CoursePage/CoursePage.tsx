@@ -7,6 +7,8 @@ import Navbar from "@widgets/Navbar/ui/Navbar.tsx";
 import CodeBlock from "@widgets/CodeBlock/ui/CodeBlock.tsx";
 import {Resizable} from "@shared/ui/Resizable/Resizable.tsx";
 import {useState} from "react";
+import {ProgressList} from "@widgets/ProgressList";
+
 
 interface CoursePageProps {
     classname?: string;
@@ -15,6 +17,7 @@ interface CoursePageProps {
 const CoursePage = (props: CoursePageProps) => {
     const {classname = ""} = props;
     const [width, setWidth] = useState(800);
+    const [isShowLectures, setIsShowLectures] = useState<boolean>(false)
     return (
         <main className={cNames(cls.CoursePage, {}, [classname])}>
             <Resizable direction={"horizontal"} resizerPosition={"right"} changedWidth={(v) => setWidth(v - 100)}>
@@ -24,8 +27,10 @@ const CoursePage = (props: CoursePageProps) => {
                 </div>
             </Resizable>
             <div className={cls.contentPanel}>
-                <ManageLecturePanel/>
-                <Outlet/>
+                <ManageLecturePanel showLectures={() => setIsShowLectures(p => !p)}/>
+
+                {isShowLectures ? <Outlet/> : <ProgressList/>}
+
             </div>
         </main>
     )

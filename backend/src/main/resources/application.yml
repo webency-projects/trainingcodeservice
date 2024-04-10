@@ -1,6 +1,3 @@
-server:
-  port: 5000
-
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5332/codelinedb
@@ -16,3 +13,4 @@ spring:
         format_sql: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+
