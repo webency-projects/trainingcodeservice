@@ -12,7 +12,11 @@ const LecturePage = (props: LecturePageProps) => {
     const rawHTML = lecture.lecture;
     return (
         <div className={cNames(cls.LecturePage, {}, [classname])}>
-            <div className={cls.lectureContent} dangerouslySetInnerHTML={{__html: rawHTML}}></div>
+            <div
+                className={cls.lectureContent}
+                dangerouslySetInnerHTML={{__html: rawHTML}}>
+            </div>
+
         </div>
     )
 }

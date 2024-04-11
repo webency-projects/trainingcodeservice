@@ -6,10 +6,11 @@ import cls from './ManageLecturePanel.module.scss';
 
 interface ManageLecturePanelProps {
     classname?: string;
+    showLectures: () => void;
 }
 
 const ManageLecturePanel = (props: ManageLecturePanelProps) => {
-    const {classname = ""} = props;
+    const {classname = "", showLectures} = props;
     return (
         <div className={cNames(cls.ManageLecturePanel, {}, [classname])}>
             <div className={cls.buttonsWrapper}>
@@ -18,7 +19,7 @@ const ManageLecturePanel = (props: ManageLecturePanelProps) => {
                 <Button theme={ButtonTheme.CLEAR}><BsArrowRight className={cls.arrowRight} size={18}/></Button>
             </div>
             <div className={cls.helpElements}>
-                <BsJournalText className={cls.journalIcon} size={18}/>
+                <BsJournalText onClick={showLectures} className={cls.journalIcon} size={18}/>
                 <BsPersonBoundingBox className={cls.profileIcon} size={18}/>
             </div>
         </div>

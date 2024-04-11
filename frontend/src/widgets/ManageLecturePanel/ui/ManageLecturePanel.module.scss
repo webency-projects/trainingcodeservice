@@ -22,6 +22,11 @@
     }
     .journalIcon {
         color: var(--el-primary-green-l);
+        cursor: pointer;
+        transition: .3s;
+        &:hover {
+            color: var(--el-primary-green-d);
+        }
     }
     .profileIcon {
         color: var(--el-primary-teal-l);

@@ -4,6 +4,7 @@ import cls from './CodeBlock.module.scss'
 import {Editor} from "@monaco-editor/react";
 
 
+
 interface CodeBlockProps {
     classname?: string;
     width: number;
@@ -11,9 +12,11 @@ interface CodeBlockProps {
 
 const CodeBlock = (props: CodeBlockProps) => {
     const {classname = "", width} = props;
+
     return (
         <div className={cNames(cls.CodeBlock, {}, [classname])} style={{width: width}}>
             <Editor
+
                 defaultLanguage={"python"}
                 defaultValue={"# Ваш код"}
                 height={"100%"}
@@ -28,10 +31,8 @@ const CodeBlock = (props: CodeBlockProps) => {
                     scrollBeyondLastLine: false,
                     automaticLayout: true,
                 }}
-
             />
             <div>
-                
             </div>
         </div>
     )
