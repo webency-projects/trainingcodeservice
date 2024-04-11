@@ -8,6 +8,7 @@ import CoursePage from "@pages/CoursePage/CoursePage.tsx";
 import LecturePage from "@pages/LecturePage/LecturePage.tsx";
 import TeacherDashboard from "@pages/Dashboard/Teacher/Main/TeacherDashboard.tsx";
 import AdminDashboard from "@pages/Dashboard/Admin/Main/AdminDashboard.tsx";
+import {Layout} from "@pages/Dashboard/Layout";
 
 
 export const router = createBrowserRouter([
@@ -29,6 +30,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "dashboard",
+                element: <Layout />,
                 children: [
                     {
                         path: "teacher",
