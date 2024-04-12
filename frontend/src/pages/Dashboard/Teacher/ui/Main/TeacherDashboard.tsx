@@ -21,9 +21,11 @@ const TeacherDashboard = (props: TeacherDashboardProps) => {
                     <div></div>
                     <div className={cls.groupEnd}>
                         <Button>Добавить проект</Button>
-                        <Button>Удалить</Button>
                     </div>
                 </Toolbar>
+                <table>
+
+                </table>
             </Card>
         </div>
     )

@@ -4,11 +4,22 @@ import {createBrowserRouter} from "react-router-dom";
 import App from "@app/App.tsx";
 import ErrorPage from "@pages/ErrorPage/ErrorPage.tsx";
 import HomePage from "@pages/HomePage/HomePage.tsx";
-import CoursePage from "@pages/CoursePage/CoursePage.tsx";
-import LecturePage from "@pages/LecturePage/LecturePage.tsx";
-import TeacherDashboard from "@pages/Dashboard/Teacher/Main/TeacherDashboard.tsx";
 import AdminDashboard from "@pages/Dashboard/Admin/Main/AdminDashboard.tsx";
 import {Layout} from "@pages/Dashboard/Layout";
+import CoursePage from "@pages/CoursePage/CoursePage.tsx";
+import LecturePage from "@pages/LecturePage/LecturePage.tsx";
+import {
+    Lectures,
+    Projects,
+    Students,
+    Tasks,
+    TeacherDashboard,
+    Groups,
+    Statistic,
+    Profile
+} from "@pages/Dashboard/Teacher";
+
+
 
 
 export const router = createBrowserRouter([
@@ -23,9 +34,10 @@ export const router = createBrowserRouter([
                 element: <CoursePage/>,
                 children: [
                     {
-                        path: ":slug",
+                        path: "lectures",
                         element: <LecturePage/>
                     }
+
                 ]
             },
             {
@@ -33,17 +45,43 @@ export const router = createBrowserRouter([
                 element: <Layout />,
                 children: [
                     {
-                        path: "teacher",
-                        element: <TeacherDashboard/>,
-                        children: [
-
-                        ]
+                        path: "",
+                        element: <TeacherDashboard/>
                     },
                     {
-                        path: "admin",
-                        element: <AdminDashboard />,
-                    }
+                        path: "projects",
+                        element: <Projects/>
+                    },
+                    {
+                        path: "tasks",
+                        element: <Tasks/>
+                    },
+                    {
+                        path: "lectures",
+                        element: <Lectures/>
+                    },
+                    {
+                        path: "groups",
+                        element: <Groups/>
+                    },
+                    {
+                        path: "students",
+                        element: <Students/>
+                    },
+                    {
+                        path: "statistic",
+                        element: <Statistic/>
+                    },
+                    {
+                        path: "profile",
+                        element: <Profile/>
+                    },
                 ]
+            },
+            {
+                path: "admin",
+                element: <AdminDashboard />,
+                children: []
             }
         ]
 
