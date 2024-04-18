@@ -1,0 +1,23 @@
+.Lectures {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.content {
+    display: flex;
+    gap: 2rem;
+}
+
+.sectionWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 1rem;
+}
+.button {
+    margin-top: 3rem;
+}
+.preview {
+    max-width: 400px;
+}

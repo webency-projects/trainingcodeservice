@@ -37,7 +37,7 @@ const Layout = (props: LayoutProps) => {
                 <DashboardMenu data={menuData}/>
                 <div className={cls.logout}> <SlLogout /> Выйти</div>
             </div>
-            <div className={cNames(cls.mainContainer, {[cls.isShowBar]: isShow}, [])}>
+            <div className={cNames(cls.mainContainer, {[cls.isFull]: isShow}, [])}>
                 <div className={cls.main}>
                     <Outlet/>
                 </div>
