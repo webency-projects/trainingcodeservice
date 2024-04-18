@@ -7,6 +7,8 @@ import {Button, ButtonTheme} from "@shared/ui/Buttton/Button.tsx";
 import {BsList} from "react-icons/bs";
 import {useState} from "react";
 import {DashboardMenu} from "@shared/ui/DashboardMenu";
+import {menuData} from "@pages/Dashboard/Teacher";
+import {SlLogout} from "react-icons/sl";
 
 
 interface LayoutProps {
@@ -32,9 +34,10 @@ const Layout = (props: LayoutProps) => {
                 </div>
             </div>
             <div className={cNames(cls.sidebar, {[cls.isShowBar]: isShow}, [])}>
-                <DashboardMenu />
+                <DashboardMenu data={menuData}/>
+                <div className={cls.logout}> <SlLogout /> Выйти</div>
             </div>
-            <div className={cNames(cls.mainContainer, {[cls.isShowBar]: isShow}, [])}>
+            <div className={cNames(cls.mainContainer, {[cls.isFull]: isShow}, [])}>
                 <div className={cls.main}>
                     <Outlet/>
                 </div>

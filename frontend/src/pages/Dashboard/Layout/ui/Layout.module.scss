@@ -51,18 +51,13 @@
         }
     }
 }
-.isShowBar {
-    transform: translateX(-100%);
-    left: 0;
-}
+
 .Burger {
     font-size: 1.5rem;
     &:hover {
         background-color: var(--dark-lighter);
     }
 }
-
-
 .sidebar {
     position: fixed;
     width: 300px;
@@ -79,8 +74,29 @@
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.02),
     0 0 2px rgba(0, 0, 0, 0.05),
     0 1px 4px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .logout {
+        padding: 0.75rem 1rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+        cursor: pointer;
+        border-radius: 12px;
+        user-select: none;
+        transition: background-color 0.2s, box-shadow 0.2s;
+        &:hover {
+            background-color: var(--dark-base);
+        }
+    }
 }
-
+.isShowBar {
+    transform: translateX(-100%);
+    left: 0;
+}
 .mainContainer {
     display: flex;
     flex-direction: column;
