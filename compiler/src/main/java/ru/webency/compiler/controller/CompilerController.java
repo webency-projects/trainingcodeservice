@@ -1,5 +1,6 @@
 package ru.webency.compiler.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,12 +22,15 @@ import java.util.Date;
 
 @RestController
 @RequestMapping(value = "api/v1/compiler")
+@Tag(name = "Compiler")
 public class CompilerController {
     Logger logger = LogManager.getLogger(CompilerController.class);
 
     @RequestMapping(
             value = "python",
-            method = RequestMethod.POST
+            method = RequestMethod.POST,
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<?> compilePython(
             @RequestPart(value="outputFile", required = true) MultipartFile outputFile,
