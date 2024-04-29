@@ -5,9 +5,10 @@ import './quiltheme.css';
 interface EditorProps {
     retrieveData: (data: string) => void;
     clear: boolean;
+    isCleared: () => void;
 }
 
-const Editor = ({retrieveData, clear}: EditorProps) => {
+const Editor = ({retrieveData, clear, isCleared}: EditorProps) => {
     const [value, setValue] = useState<string>('');
     useEffect(() => {
         retrieveData(value);
@@ -16,6 +17,7 @@ const Editor = ({retrieveData, clear}: EditorProps) => {
     useEffect(() => {
         if (clear) {
             setValue("")
+            isCleared();
         }
     }, [clear]);
     return (
@@ -29,7 +31,7 @@ const Editor = ({retrieveData, clear}: EditorProps) => {
 }
 const modules = {
     toolbar: [
-        [{ 'header': [1, 2, false] }],
+        [{ 'header': [2, 3, false] }],
         ['bold', 'italic', 'underline' , 'blockquote', 'code-block'],
         [{'list': 'ordered'}, {'list': 'bullet'}],
         ['link', 'image'],
