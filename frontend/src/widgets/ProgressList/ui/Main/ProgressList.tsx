@@ -2,7 +2,7 @@ import {cNames} from "@shared/lib/cNames/cNames.ts";
 
 import cls from './ProgressList.module.scss'
 import ListLectures from "@shared/assets/mocks/ListLectures.json";
-import {Lecture} from "@entities/Lecture/model/Lectures.ts";
+import {Lecture} from "@entities/Lecture/model/LectureModel.ts";
 import ListItem from "@widgets/ProgressList/ui/ListItem/ListItem.tsx";
 import { useNavigate  } from "react-router-dom";
 interface ProgressListProps {
