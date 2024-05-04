@@ -1,9 +1,22 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5332/codelinedb
-    username: codeline
-    password: codeline
+    url: jdbc:postgresql://localhost:5432/reglog
+    username: nadezhda
+    password: '0000'
     driver-class-name: org.postgresql.Driver
+  mail:
+    host: smtp.gmail.com
+    port: 465
+    username: nadyushka.likhanova2015@gmail.com
+    password: mmxahpilzudcmmdj
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          ssl:
+            enable: true
   jpa:
     hibernate:
       ddl-auto: create-drop
