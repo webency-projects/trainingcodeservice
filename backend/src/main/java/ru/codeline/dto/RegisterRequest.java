@@ -1,4 +1,4 @@
-package ru.codeline.auth;
+package ru.codeline.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 public class RegisterRequest {
     private String firstName;
     private String lastName;
-    private String inviteToken;
     private String email;
     private String password;
 }
