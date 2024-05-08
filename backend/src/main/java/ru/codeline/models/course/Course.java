@@ -1,4 +1,4 @@
-package ru.codeline.models.user;
+package ru.codeline.models.course;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -6,22 +6,23 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.UUID;
+import ru.codeline.models.user.User;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Users")
-public class User {
+@Table(name = "Courses")
+public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false, nullable = false, length = 36)
     private UUID id;
 
-    private String firstName;
-    private String lastName;
+    private String title;
 
-    @Column(unique = true)
-    private String email;
+    @ManyToOne
+    @JoinColumn
+    private User teacherId;
 }
