@@ -1,18 +1,24 @@
 import {cNames} from "@shared/lib/cNames/cNames.ts";
 
 import cls from './ProgressList.module.scss'
-import ListLectures from "@shared/assets/mocks/ListLectures.json";
-import {Lecture} from "@entities/Lecture/model/LectureModel.ts";
+
 import ListItem from "@widgets/ProgressList/ui/ListItem/ListItem.tsx";
 import { useNavigate  } from "react-router-dom";
+import {useEffect, useState} from "react";
+import {LectureModel} from "@entities/Lecture/model/LectureModel.ts";
 interface ProgressListProps {
     classname?: string;
 }
 
 const ProgressList = (props: ProgressListProps) => {
     const {classname = ""} = props;
-    const listLectures: Lecture[] = ListLectures;
     const navigate = useNavigate()
+    const [listLectures, setListLectures] = useState<LectureModel[]>([])
+
+    useEffect(() => {
+
+
+    }, []);
 
     const goToLecture = (slug: string, isAvailable: boolean) => {
         if (isAvailable) {

@@ -1,8 +1,8 @@
 import {cNames} from "@shared/lib/cNames/cNames.ts";
 
 import cls from './LecturePage.module.scss'
-import data from "@shared/assets/mocks/lecturesData.json"
 import LecturePreview from "@shared/ui/LecturePreview/ui/LecturePreview.tsx";
+import {LectureModel} from "@entities/Lecture/model/LectureModel.ts";
 
 
 interface LecturePageProps {
@@ -12,11 +12,13 @@ interface LecturePageProps {
 const LecturePage = (props: LecturePageProps) => {
     const {classname = ""} = props;
 
+    const data:LectureModel = {}
+
     return (
         <div className={cNames(cls.LecturePage, {}, [classname])}>
             <div
                 className={cls.lectureContent}>
-                <LecturePreview lecture={data.lecture}/>
+                <LecturePreview lecture={data}/>
             </div>
 
         </div>
