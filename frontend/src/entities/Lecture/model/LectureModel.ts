@@ -1,10 +1,10 @@
 
 export interface LectureModel {
-    order?: number;
-    slug?: string;
+    order: number;
+    slug: string;
     title: string;
     description: string;
-    isAvailable?: boolean;
+    isAvailable: boolean;
     sections: Section[]
 }
 export interface Section {

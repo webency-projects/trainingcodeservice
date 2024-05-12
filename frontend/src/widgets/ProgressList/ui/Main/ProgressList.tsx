@@ -6,6 +6,7 @@ import ListItem from "@widgets/ProgressList/ui/ListItem/ListItem.tsx";
 import { useNavigate  } from "react-router-dom";
 import {useEffect, useState} from "react";
 import {LectureModel} from "@entities/Lecture/model/LectureModel.ts";
+import {getLectures} from "@shared/api/course";
 interface ProgressListProps {
     classname?: string;
 }
@@ -15,9 +16,9 @@ const ProgressList = (props: ProgressListProps) => {
     const navigate = useNavigate()
     const [listLectures, setListLectures] = useState<LectureModel[]>([])
 
+
     useEffect(() => {
-
-
+        (async () => await getLectures().then(res => setListLectures(res)).catch(e => console.log(e)))()
     }, []);
 
     const goToLecture = (slug: string, isAvailable: boolean) => {
@@ -28,7 +29,7 @@ const ProgressList = (props: ProgressListProps) => {
     return (
         <div className={cNames(cls.ProgressList, {}, [classname])}>
             <ul>
-                {listLectures.map(item => (
+                {listLectures && listLectures.map(item => (
                     <ListItem
                         key={item.slug}
                         title={item.title}

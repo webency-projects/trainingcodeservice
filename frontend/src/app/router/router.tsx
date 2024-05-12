@@ -1,8 +1,5 @@
 import {createBrowserRouter} from "react-router-dom";
-
-
 import App from "@app/App.tsx";
-import ErrorPage from "@pages/ErrorPage/ErrorPage.tsx";
 import HomePage from "@pages/HomePage/HomePage.tsx";
 import AdminDashboard from "@pages/Dashboard/Admin/Main/AdminDashboard.tsx";
 import {Layout} from "@pages/Dashboard/Layout";
@@ -18,6 +15,7 @@ import {
     Statistic,
     Profile
 } from "@pages/Dashboard/Teacher";
+import {ProgressList} from "@widgets/ProgressList";
 
 
 
@@ -26,7 +24,6 @@ export const router = createBrowserRouter([
     {
         path: "/",
         element: <App />,
-        errorElement: <ErrorPage />,
         children: [
             {index: true, element: <HomePage />},
             {
@@ -34,10 +31,13 @@ export const router = createBrowserRouter([
                 element: <CoursePage/>,
                 children: [
                     {
-                        path: "lectures",
-                        element: <LecturePage/>
+                        index: true,
+                        element: <ProgressList/>,
+                    },
+                    {
+                        path: ":slug",
+                        element: <LecturePage/>,
                     }
-
                 ]
             },
             {
