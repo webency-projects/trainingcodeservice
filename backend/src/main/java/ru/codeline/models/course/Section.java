@@ -19,9 +19,9 @@ public class Section {
 
     @ManyToOne
     @JoinColumn
-    private Lecture lectureId;
+    private Lecture lecture;
 
     private String title;
-    private Integer numInSeq;
+    // private Integer numInSeq;
     private String content;
 }

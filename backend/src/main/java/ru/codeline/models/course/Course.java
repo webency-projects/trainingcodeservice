@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import ru.codeline.models.user.User;
 
@@ -24,5 +27,19 @@ public class Course {
 
     @ManyToOne
     @JoinColumn
-    private User teacherId;
+    private User user;
+
+    // The owning side - the Lecture entity (child), the inverse side - the Course entity (parent)
+    @OneToMany(mappedBy = "course",
+            orphanRemoval = true,
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            fetch = FetchType.LAZY)
+    private List<Lecture> lectures = new ArrayList<>();
+
+    // The owning side - the Questionnaire entity (child), the inverse side - the Course entity (parent)
+    @OneToMany(mappedBy = "course",
+            orphanRemoval = true,
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            fetch = FetchType.LAZY)
+    private List<Questionnaire> questionnaires = new ArrayList<>();
 }

@@ -19,11 +19,11 @@ public class Questionnaire {
 
     @ManyToOne
     @JoinColumn
-    private Course courseId;
+    private Course course;
 
     @ManyToOne
     @JoinColumn
-    private Lecture lectureId;
+    private Lecture lecture;
 
     private String content;
     private String opt1;

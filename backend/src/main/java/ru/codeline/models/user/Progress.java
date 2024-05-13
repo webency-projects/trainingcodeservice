@@ -19,7 +19,7 @@ public class Progress {
 
     @ManyToOne
     @JoinColumn
-    private Lecture lectureId;
+    private Lecture lecture;
 
     @Column(columnDefinition = "int default 0")
     private Integer numOfFails;

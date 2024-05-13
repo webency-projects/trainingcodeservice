@@ -3,7 +3,7 @@ package ru.codeline.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.codeline.dto.AddTeacher;
+import ru.codeline.dto.TeacherRequest;
 import ru.codeline.models.user.Pass;
 import ru.codeline.models.user.Role;
 import ru.codeline.models.user.User;
@@ -19,7 +19,7 @@ public class TeacherService {
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
 
-    public void addTeacher(AddTeacher request) {
+    public void addTeacher(TeacherRequest request) {
         User teacherUser = new User();
         teacherUser.setFirstName(request.getFirstName());
         teacherUser.setLastName(request.getLastName());
