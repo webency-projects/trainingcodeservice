@@ -7,15 +7,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import ru.webency.compiler.exceptions.CompilerException;
+import ru.webency.compiler.model.Language;
+import ru.webency.compiler.model.Request;
 import ru.webency.compiler.service.CompilerServiceInterface;
+
+import java.io.IOException;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @AllArgsConstructor
-@RequestMapping(value = "api/v1/compiler")
+@RequestMapping(value = "service/v1/compiler")
 public class CompilerController {
     private CompilerServiceInterface compilerService;
-
 
     @RequestMapping(
             value = "python",
@@ -32,6 +36,10 @@ public class CompilerController {
     ) throws Exception {
         System.out.println(outputFile.toString());
         System.out.println(sourceCode.toString());
-        return compilerService.compile(outputFile, sourceCode, inputFile, timeLimit, memoryLimit);
+        return compilerService.compile(outputFile, sourceCode, inputFile, timeLimit, memoryLimit, Language.PYTHON);
+    }
+    @PostMapping("/json")
+    public ResponseEntity<Object> compile(@RequestBody Request request) throws CompilerException, IOException {
+        return compilerService.compile(request);
     }
 }

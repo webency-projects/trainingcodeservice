@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
                 version = "1.0.0",
                 title = "Programming Compiler",
                 contact = @Contact(
-                        name = "Artem Smirnov",
+                        name = "Webency Project",
                         url = "https://github.com/webency-projects"
         )),
         servers = {

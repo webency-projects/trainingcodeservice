@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 
 @Slf4j
 public class FileHandler {
+    private FileHandler() {}
 
     public static void saveUploadedFile(MultipartFile file, String name) throws IOException {
         if (file.isEmpty()) return;
@@ -19,11 +20,9 @@ public class FileHandler {
         Files.write(path, bytes);
     }
     public static boolean deleteFile(String folder, String file) {
-        if (folder != null && file!= null) {
+        if (folder != null && file != null) {
             String fileName = folder + "/" + file;
-            new File(fileName).delete();
-            log.info("The file " + fileName + " has been deleted");
-            return true;
+            return new File(fileName).delete();
         }
         return false;
     }

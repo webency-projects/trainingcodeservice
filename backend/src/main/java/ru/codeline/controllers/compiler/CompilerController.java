@@ -22,7 +22,7 @@ public class CompilerController {
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public CompileResponse compile(
+    public ResponseEntity<CompileResponse> compile(
             @RequestPart(value = "sourceCode") MultipartFile sourceCode,
             @RequestParam(value = "problemId") Integer problemId) {
 

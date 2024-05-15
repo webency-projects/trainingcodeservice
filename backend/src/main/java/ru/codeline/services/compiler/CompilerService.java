@@ -11,17 +11,11 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import ru.codeline.dto.compiler.CompileResponse;
 
-
-import java.io.IOException;
-
-import java.net.URISyntaxException;
-
-
 @Service
 public class CompilerService {
     private static final String URI_COMPILER_SERVICE = "http://localhost:5000/compiler?timeLimit=10&memoryLimit=500";
 
-    public ResponseEntity<CompileResponse> compile(MultipartFile sourceCode, Integer problemId) throws URISyntaxException {
+    public ResponseEntity<CompileResponse> compile(MultipartFile sourceCode, Integer problemId) {
 
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
         body.add("sourceCode", sourceCode);
