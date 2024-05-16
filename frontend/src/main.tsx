@@ -1,15 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import {ThemeProvider} from "./app/providers/ui/ThemeProvider.tsx";
+import {Provider} from 'react-redux';
 import {RouterProvider} from "react-router-dom";
 import {router} from "./app/router/router.tsx";
+import {store} from "@app/store/store.ts";
 
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <ThemeProvider>
-        <RouterProvider router={router}/>
-    </ThemeProvider>
+      <Provider store={store}>
+          <RouterProvider router={router}/>
+      </Provider>
   </React.StrictMode>,
 )

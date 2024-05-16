@@ -1,7 +1,8 @@
 import {cNames} from "@shared/lib/cNames/cNames.ts";
 
 import cls from './ThemeSwitcher.module.scss'
-import {useTheme} from "@app/providers/lib/useTheme.ts";
+import {useTheme} from "@features/theme";
+
 
 interface ThemeSwitcherProps {
     classname?: string;
