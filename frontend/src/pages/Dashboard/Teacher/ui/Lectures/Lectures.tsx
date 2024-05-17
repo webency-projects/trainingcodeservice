@@ -18,9 +18,6 @@ const initLecture: LectureModel = {
     description: "",
     sections: []
 }
-
-
-
 const Lectures = (props: LecturesProps) => {
     const {classname = ""} = props;
     const [lecture, setLecture] = useState<LectureModel>(initLecture)

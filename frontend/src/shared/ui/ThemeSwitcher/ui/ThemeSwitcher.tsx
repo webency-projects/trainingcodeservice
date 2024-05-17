@@ -2,12 +2,9 @@ import {cNames} from "@shared/lib/cNames/cNames.ts";
 
 import cls from './ThemeSwitcher.module.scss'
 import {useTheme} from "@features/theme";
-
-
 interface ThemeSwitcherProps {
     classname?: string;
 }
-
 const ThemeSwitcher = (props: ThemeSwitcherProps) => {
     const {classname = ""} = props;
     const {toggleTheme} = useTheme();

@@ -1,0 +1,40 @@
+.Sidebar {
+    position: fixed;
+    display: flex;
+    width: 300px;
+    height: calc(100vh - 20rem);
+    z-index: 999;
+    overflow-y: auto;
+    user-select: none;
+    top: 4rem;
+    left: 0;
+    transition: transform .3s, left .3s;
+    background: var(--dark-darker);
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    padding: 1.5rem 0.5rem 1.5rem 1rem;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.02),
+                0 0 2px rgba(0, 0, 0, 0.05),
+                0 1px 4px rgba(0, 0, 0, 0.08);
+
+    .controlPanel {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 1.5rem;
+        padding-left: .5rem;
+    }
+    .foldersPanel {
+        width: 100%;
+        border-top-left-radius: 1rem;
+        padding-left: 0.5rem;
+        padding-top: 0.7rem;
+        border-left: 1px solid var(--el-primary-orange-d);
+    }
+}
+.isCollapse {
+    transform: translateX(-100%);
+    left: 3rem;
+}
+
+

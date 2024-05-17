@@ -1,15 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
 import {themeReducer} from "@features/theme";
+import {lectureReducer} from "@pages/Dashboard/Teacher/store/slice/lectureSlice.ts";
+import axios from "axios";
 export const store = configureStore({
     reducer:{
         theme: themeReducer,
+        lectures: lectureReducer,
     },
     devTools: true,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         thunk: {
             extraArgument: {
-                apiClient: "",
-                api: "api"
+                apiClient: axios
             }
         },
         serializableCheck: false,

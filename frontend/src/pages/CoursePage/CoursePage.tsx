@@ -8,6 +8,7 @@ import CodeBlock from "@widgets/CodeBlock/ui/CodeBlock.tsx";
 import {Resizable} from "@shared/ui/Resizable/Resizable.tsx";
 import {useState} from "react";
 import Console from "@widgets/Console/ui/Console.tsx";
+import {Sidebar} from "@widgets/Sidebar";
 
 
 
@@ -25,6 +26,7 @@ const CoursePage = (props: CoursePageProps) => {
             <Resizable direction={"horizontal"} resizerPosition={"right"} changedWidth={(v) => setWidth(v - 100)}>
                 <div className={cls.userPanel}>
                     <Navbar/>
+                    <Sidebar />
                     <CodeBlock width={width}/>
                     <Console data={data} isError={false}/>
                 </div>

@@ -1,0 +1,14 @@
+.Node {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.5rem;
+    width: 100%;
+    padding: .5rem 0;
+}
+.Icon {
+    color: var(--el-primary-green);
+}
+
+.IconFolder {
+    color: var(--el-primary-orange);
+}
