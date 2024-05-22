@@ -4,9 +4,17 @@
     gap: 2rem;
 }
 
-.content {
+.wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+}
+
+.panel {
+    display: flex;
+    justify-content: space-between;
+}
+.controls {
     display: flex;
     gap: 2rem;
 }
-
-

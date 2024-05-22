@@ -5,29 +5,7 @@ import './quiltheme.css';
 interface EditorProps {
     retrieveData: (data: string) => void;
     clear: boolean;
-    isCleared: () => void;
-}
-
-const Editor = ({retrieveData, clear, isCleared}: EditorProps) => {
-    const [value, setValue] = useState<string>('');
-    useEffect(() => {
-        retrieveData(value);
-
-    }, [value]);
-    useEffect(() => {
-        if (clear) {
-            setValue("")
-            isCleared();
-        }
-    }, [clear]);
-    return (
-        <ReactQuill theme="snow"
-                    modules={modules}
-                    formats={formats}
-                    value={value}
-                    placeholder={"Введите текст..."}
-                    onChange={setValue}/>
-    );
+    onCleared: () => void;
 }
 const modules = {
     toolbar: [
@@ -43,4 +21,27 @@ const formats = [
     'list', 'bullet',
     'link', 'image'
 ]
+const Editor = ({retrieveData, clear, onCleared}: EditorProps) => {
+    const [value, setValue] = useState<string>('');
+
+    useEffect(() => {
+        retrieveData(value);
+
+    }, [value]);
+    useEffect(() => {
+        if (clear) {
+            setValue("")
+            onCleared();
+        }
+    }, [clear]);
+    return (
+        <ReactQuill theme="snow"
+                    modules={modules}
+                    formats={formats}
+                    value={value}
+                    placeholder={"Введите текст..."}
+                    onChange={setValue}/>
+    );
+}
+
 export default Editor;

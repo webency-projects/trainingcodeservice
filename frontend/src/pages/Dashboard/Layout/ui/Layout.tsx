@@ -17,7 +17,7 @@ interface LayoutProps {
 
 const Layout = (props: LayoutProps) => {
     const {classname = ""} = props;
-    const [isShow, setIsShow] = useState(false)
+    const [isShow, setIsShow] = useState(true)
     return (
         <div className={cNames(cls.Layout, {}, [classname])}>
             <div className={cls.top}>
