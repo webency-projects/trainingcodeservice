@@ -1,0 +1,79 @@
+.AllLectures {
+    height: calc(100vh - 20rem);
+    overflow-y: auto;
+}
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    thead {
+        tr {
+            th {
+                padding:.5rem 1rem;
+                background: var(--bg-color);
+                text-align: left;
+            }
+            th:first-child {
+                width: 5%;
+            }
+            th:nth-child(2) {
+                width: 20%;
+            }
+            th:last-child {
+                width: 20%;
+                text-align: right;
+            }
+        }
+    }
+    tbody {
+        tr {
+            td {
+                padding: .5rem 1rem;
+                border-bottom: 1px solid var(--bg-color);
+            }
+            td:last-child {
+                display: flex;
+                justify-content: flex-end;
+                gap: 1rem;
+            }
+            &:hover {
+                background: var(--dark-base);
+            }
+        }
+    }
+}
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        border: 1px solid var(--bg-color);
+        border-radius: 5px;
+        cursor: pointer;
+        &:hover {
+            background: var(--bg-color);
+        }
+    }
+}
+.deleteIcon {
+    color: var(--el-primary-red);
+    transition: all .3s ease;
+    cursor: pointer;
+    &:hover {
+        color: var(--el-primary-red-l);
+    }
+}
+
+.editIcon {
+    color:var(--el-primary-green-d);
+    transition: all .3s ease;
+    cursor: pointer;
+    &:hover {
+        color: var(--el-primary-green-l);
+    }
+}
