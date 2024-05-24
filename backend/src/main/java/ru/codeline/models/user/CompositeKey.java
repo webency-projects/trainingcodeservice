@@ -10,11 +10,10 @@ import java.io.Serializable;
 @Embeddable
 public class CompositeKey implements Serializable {
     @ManyToOne
-    @JoinColumn
-    private User studentId;
+    @JoinColumn(name = "student_id")
+    private User user;
 
     @ManyToOne
-    @JoinColumn
-    private Course courseId;
-
+    @JoinColumn(name = "course_id")
+    private Course course;
 }

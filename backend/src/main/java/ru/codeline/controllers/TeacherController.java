@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.codeline.dto.AddTeacher;
+import ru.codeline.dto.TeacherRequest;
 import ru.codeline.services.TeacherService;
 
 @RequiredArgsConstructor
@@ -18,7 +18,7 @@ public class TeacherController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/teacher")
-    public ResponseEntity<String> addTeacher(@RequestBody AddTeacher request) {
+    public ResponseEntity<String> addTeacher(@RequestBody TeacherRequest request) {
         teacherService.addTeacher(request);
         return ResponseEntity.ok("New teacher added successfully!");
     }

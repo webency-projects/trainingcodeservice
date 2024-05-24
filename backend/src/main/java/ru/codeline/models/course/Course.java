@@ -1,11 +1,16 @@
 package ru.codeline.models.course;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+
 import ru.codeline.models.user.User;
 
 @Data
@@ -17,12 +22,24 @@ import ru.codeline.models.user.User;
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(updatable = false, nullable = false, length = 36)
     private UUID id;
 
+    @Column(columnDefinition = "varchar")
     private String title;
+    @Column(columnDefinition = "varchar")
+    private String language;
 
     @ManyToOne
-    @JoinColumn
-    private User teacherId;
+    @JoinColumn(name = "teacher_id")
+    private User user;
+
+    @Column(name = "num_of_lect")
+    private Integer numOfLect = 0;
+
+    // The owning side - the Lecture entity (child), the inverse side - the Course entity (parent)
+    @OneToMany(mappedBy = "course",
+            orphanRemoval = true,
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @JsonManagedReference
+    private List<Lecture> lectures = new ArrayList<>();
 }

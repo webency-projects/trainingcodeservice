@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateCourse {
+public class CourseRequest {
     private String title;
+    private String language;
 }

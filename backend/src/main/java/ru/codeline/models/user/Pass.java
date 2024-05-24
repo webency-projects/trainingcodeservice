@@ -23,19 +23,18 @@ import java.util.UUID;
 public class Pass implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(updatable = false, nullable = false, length = 36)
     private UUID id;
 
-
-    @OneToOne
-    @JoinColumn(name = "email", referencedColumnName = "email")
+    @OneToOne // unidirectional relationship
+    @JoinColumn(name = "email", referencedColumnName = "email", columnDefinition = "varchar")
     private User user;
 
+    @Column(columnDefinition = "varchar")
     private String password;
 
+    @Column(columnDefinition = "varchar")
     @Enumerated(EnumType.STRING)
     private Role role;
-
 
     @Override
     public String getUsername() {

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddTeacher {
+public class TeacherRequest {
     private String firstName;
     private String lastName;
     private String email;

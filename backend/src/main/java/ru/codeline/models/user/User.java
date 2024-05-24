@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.util.UUID;
 
 @Data
@@ -16,12 +17,14 @@ import java.util.UUID;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(updatable = false, nullable = false, length = 36)
     private UUID id;
 
+    @Column(name = "first_name", columnDefinition = "varchar")
     private String firstName;
+    @Column(name = "last_name", columnDefinition = "varchar")
     private String lastName;
 
-    @Column(unique = true)
+    // No reference back to Pass
+    @Column(unique = true, columnDefinition = "varchar")
     private String email;
 }
