@@ -4,12 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.util.List;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CourseRequest {
-    private String title;
-    private String language;
+public class QuestionnaireRequest {
+    private String question;
+    private List<String> options;
+    private String corrAns;
 }

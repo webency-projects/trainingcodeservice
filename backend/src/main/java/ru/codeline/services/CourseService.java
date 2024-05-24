@@ -20,11 +20,10 @@ public class CourseService {
     private final UserRepository userRepository;
 
     public void createCourse(CourseRequest courseRequest, User teacherId) {
-        // Logic to save information from CourseRequest to the database
-        var course = Course.builder()
-                .title(courseRequest.getTitle())
-                .user(teacherId)
-                .build();
+        Course course = new Course();
+        course.setTitle(courseRequest.getTitle());
+        course.setLanguage(courseRequest.getLanguage());
+        course.setUser(teacherId);
         courseRepository.save(course);
     }
 
@@ -41,6 +40,8 @@ public class CourseService {
             CourseResponse courseResponse = new CourseResponse();
             courseResponse.setCourseId(course.getId());
             courseResponse.setTitle(course.getTitle());
+            courseResponse.setLanguage(course.getLanguage());
+            courseResponse.setNumOfLect(course.getNumOfLect());
             courseResponse.setTeacherId(teacherId);
             courseResponse.setTeacherFirstName(teacherFirstName);
             courseResponse.setTeacherLastName(teacherLastName);
@@ -55,7 +56,7 @@ public class CourseService {
         List<CourseResponse> coursesForTeachers = new ArrayList<>();
 
         for (Course course : courses) {
-            CourseResponse courseResponseForTeachers = new CourseResponse(course.getId(), course.getTitle());
+            CourseResponse courseResponseForTeachers = new CourseResponse(course.getId(), course.getTitle(), course.getLanguage(), course.getNumOfLect());
             coursesForTeachers.add(courseResponseForTeachers);
         }
 

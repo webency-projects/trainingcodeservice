@@ -12,23 +12,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Sections")
-public class Section {
+@Table(name = "Tests")
+public class Test {
     @Id
     @GeneratedValue
     private Integer id;
 
-    @Column(columnDefinition = "varchar")
-    private String title;
-
-    @ManyToOne
+    @OneToOne
     @JsonBackReference
     @JoinColumn(name = "lecture_id")
     private Lecture lecture;
 
-    @Column(name = "num_in_seq")
-    private Integer numInSeq;
-
     @Column(columnDefinition = "text")
-    private String content;
+    private String input;
+    @Column(columnDefinition = "text")
+    private String output;
 }

@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CourseRequest {
+public class SectionRequest {
+    private Integer numInSeq;
     private String title;
-    private String language;
+    private String content;
 }

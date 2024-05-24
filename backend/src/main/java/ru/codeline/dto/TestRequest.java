@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CourseRequest {
-    private String title;
-    private String language;
+public class TestRequest {
+    private String input;
+    private String output;
 }

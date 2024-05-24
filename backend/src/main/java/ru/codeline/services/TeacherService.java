@@ -38,5 +38,4 @@ public class TeacherService {
         // Send email with password to teacher
         emailService.sendPasswordEmail(request.getEmail(), plainPassword);
     }
-
 }

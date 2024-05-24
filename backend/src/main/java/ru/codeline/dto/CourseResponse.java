@@ -14,12 +14,16 @@ import java.util.UUID;
 public class CourseResponse {
     private UUID courseId;
     private String title;
+    private String language;
+    private Integer numOfLect;
     private UUID teacherId;
     private String teacherFirstName;
     private String teacherLastName;
 
-    public CourseResponse(UUID courseId, String title) {
+    public CourseResponse(UUID courseId, String title, String language, Integer numOfLect) {
         this.courseId = courseId;
         this.title = title;
+        this.language = language;
+        this.numOfLect = numOfLect;
     }
 }
