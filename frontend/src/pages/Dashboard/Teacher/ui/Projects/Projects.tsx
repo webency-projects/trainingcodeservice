@@ -2,6 +2,7 @@ import {cNames} from "@shared/lib/cNames/cNames.ts";
 
 import cls from './Projects.module.scss'
 import {useState} from "react";
+import PanelWithControl from "@shared/ui/PanelWithControl/PanelWithControl.tsx";
 
 interface ProjectsProps {
     classname?: string;
@@ -12,9 +13,7 @@ const Projects = (props: ProjectsProps) => {
     const [courses] = useState(data)
     return (
         <div className={cNames(cls.Projects, {}, [classname])}>
-            <div className={cls.panel}>
-                <h1>Управление курсами</h1>
-            </div>
+            <PanelWithControl title={"Управление курсами"}/>
             <div className={cls.courseWrapper}>
                 {courses && courses.map((course) => (
                     <CourseCard

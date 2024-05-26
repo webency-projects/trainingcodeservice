@@ -1,10 +1,7 @@
 import {cNames} from "@shared/lib/cNames/cNames.ts";
 
 import cls from './TeacherDashboard.module.scss'
-import {Button} from "@shared/ui/Buttton/Button.tsx";
-
-import Card from "@widgets/Dashboard/Teacher/Card/Card.tsx";
-import {Toolbar} from "@widgets/Dashboard/Teacher/Toolbar";
+import PanelWithControl from "@shared/ui/PanelWithControl/PanelWithControl.tsx";
 
 
 interface TeacherDashboardProps {
@@ -15,18 +12,34 @@ const TeacherDashboard = (props: TeacherDashboardProps) => {
     const {classname = ""} = props;
     return (
         <div className={cNames(cls.TeacherDashboard, {}, [classname])}>
-            <Card>
-                <Toolbar>
-                    <div></div>
-                    <div></div>
-                    <div className={cls.groupEnd}>
-                        <Button>Добавить проект</Button>
-                    </div>
-                </Toolbar>
-                <table>
+            <PanelWithControl title={"Панель управления"}/>
+            <div className={cls.wrapper}>
+                <div className={cls.panelCard}>
+                    <h2>Курсы</h2>
+                    <div>
+54
 
-                </table>
-            </Card>
+                    </div>
+                </div>
+                <div className={cls.panelCard}>
+                    <h2>Лекции</h2>
+                    <div>
+
+                    </div>
+                </div>
+                <div className={cls.panelCard}>
+                    <h2>Тесты</h2>
+                    <div>
+
+                    </div>
+                </div>
+                <div className={cls.panelCard}>
+                    <h2>Задачи</h2>
+                    <div>
+
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }

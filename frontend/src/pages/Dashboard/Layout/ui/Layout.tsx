@@ -6,17 +6,17 @@ import {GiBrokenWall} from "react-icons/gi";
 import {Button, ButtonTheme} from "@shared/ui/Buttton/Button.tsx";
 import {BsList} from "react-icons/bs";
 import {useState} from "react";
-import {DashboardMenu} from "@shared/ui/DashboardMenu";
-import {menuData} from "@pages/Dashboard/Teacher";
+import {DashboardMenu, SidebarDataType} from "@shared/ui/DashboardMenu";
 import {SlLogout} from "react-icons/sl";
-
-
+import { LuSettings } from "react-icons/lu";
+import { PiUserCircle } from "react-icons/pi";
 interface LayoutProps {
     classname?: string;
+    sidebarData: SidebarDataType
 }
 
 const Layout = (props: LayoutProps) => {
-    const {classname = ""} = props;
+    const {classname = "", sidebarData} = props;
     const [isShow, setIsShow] = useState(true)
     return (
         <div className={cNames(cls.Layout, {}, [classname])}>
@@ -29,12 +29,16 @@ const Layout = (props: LayoutProps) => {
                     <BsList/>
                 </Button>
                 <div className={cls.topMenu}>
-                    <Button className={cls.topMenuButton}>Профиль</Button>
-                    <Button className={cls.topMenuButton}>Настройки</Button>
+                    <Button theme={ButtonTheme.CLEAR}>
+                        <PiUserCircle className={cls.icon} size={28} />
+                    </Button>
+                    <Button theme={ButtonTheme.CLEAR}>
+                        <LuSettings className={cls.icon} size={24} />
+                    </Button>
                 </div>
             </div>
             <div className={cNames(cls.sidebar, {[cls.isShowBar]: isShow}, [])}>
-                <DashboardMenu data={menuData}/>
+                <DashboardMenu data={sidebarData}/>
                 <div className={cls.logout}> <SlLogout /> Выйти</div>
             </div>
             <div className={cNames(cls.mainContainer, {[cls.isFull]: isShow}, [])}>

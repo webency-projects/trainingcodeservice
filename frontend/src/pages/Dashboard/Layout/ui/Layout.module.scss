@@ -46,8 +46,13 @@
         padding: 0;
         list-style: none;
         display: flex;
-        .topMenuButton {
-            margin-left: 1rem;
+        gap: 1.5rem;
+        .icon {
+            color: var(--el-primary-green-d);
+            transition: .3s ease;
+            &:hover {
+                color: var(--el-primary-green-l);
+            }
         }
     }
 }

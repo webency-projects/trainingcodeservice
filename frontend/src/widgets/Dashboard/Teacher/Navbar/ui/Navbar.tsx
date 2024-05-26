@@ -10,6 +10,7 @@ const Navbar = (props: NavbarProps) => {
     const {classname = ""} = props;
     return (
         <div className={cNames(cls.Navbar, {}, [classname])}>
+
             Navbar
         </div>
     )

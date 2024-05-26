@@ -36,8 +36,8 @@ const LecturePage = (props: LecturePageProps) => {
         <div className={cNames(cls.LecturePage, {}, [classname])}>
             <div className={cls.lectureContent}>
                 {lecture ? <LecturePreview lecture={lecture}/> : <Loader />}
-            </div>
 
+            </div>
         </div>
     )
 }

@@ -3,17 +3,11 @@
     flex-direction: column;
     gap: 2rem;
 }
-.panel {
-    display: flex;
-    justify-content: space-between;
-}
 .courseWrapper {
     display: flex;
     flex-wrap: wrap;
     gap: 2rem;
 }
-
-
 .CourseCard {
     width: 100%;
     max-width: 350px;
@@ -21,9 +15,13 @@
     border: 1px solid var(--dark-lighter);
     border-radius: 12px;
     color: var(--dark-lighter);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
     h2 {
         font-size: 1.2rem;
-        line-height: 2;
+        line-height: 1.5;
     }
     p {
         font-size: 1rem;

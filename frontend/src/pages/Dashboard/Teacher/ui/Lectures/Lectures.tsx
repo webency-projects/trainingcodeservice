@@ -3,6 +3,7 @@ import cls from './Lectures.module.scss'
 import {AllLectures, CreateLecture, PreviewLecture} from "@widgets/Dashboard/Teacher/Lecture";
 import {Button} from "@shared/ui/Buttton/Button.tsx";
 import {useState} from "react";
+import PanelWithControl from "@shared/ui/PanelWithControl/PanelWithControl.tsx";
 interface LecturesProps {
     classname?: string;
 }
@@ -12,13 +13,10 @@ const Lectures = (props: LecturesProps) => {
 
     return (
         <div className={cNames(cls.Lectures, {}, [classname])}>
-            <div className={cls.panel}>
-                <h1>Управление лекциями</h1>
-                <div className={cls.controls}>
-                    <Button onClick={() => setIsCreateView(false)}>Все лекции</Button>
-                    <Button onClick={() => setIsCreateView(true)}>Создать лекцию</Button>
-                </div>
-            </div>
+            <PanelWithControl title={"Управление лекциями"}>
+                <Button onClick={() => setIsCreateView(false)}>Все лекции</Button>
+                <Button onClick={() => setIsCreateView(true)}>Создать лекцию</Button>
+            </PanelWithControl>
             {isCreateView ? (
                 <div className={cls.wrapper}>
                     <CreateLecture/>
