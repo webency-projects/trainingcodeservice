@@ -41,7 +41,6 @@ public class CourseController {
         if (jwtToken == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("JWT token not found in cookies:(");
         }
-
         try {
             String teacherEmail = jwtService.extractUsername(jwtToken);
             User teacher = userRepository.findByEmail(teacherEmail);
@@ -52,18 +51,10 @@ public class CourseController {
 
             Course newCourse = courseService.createCourse(courseRequest, teacher);
 
-            return ResponseEntity.ok().body(newCourse);
+            return ResponseEntity.ok(newCourse);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create a new course:(");
         }
-    }
-
-    @PreAuthorize("hasAuthority('TEACHER')")
-    @PutMapping("/course/{courseId}")
-    public ResponseEntity<CourseResponse> updateCourse(@PathVariable UUID courseId,
-                                                       @RequestBody CourseRequest request) throws CourseNotFoundException {
-        CourseResponse courseResponse = courseService.updateCourse(courseId, request);
-        return ResponseEntity.ok(courseResponse);
     }
 
     @GetMapping("/courses")
@@ -75,7 +66,6 @@ public class CourseController {
         if (jwtToken == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("JWT token not found in cookies:(");
         }
-
         try {
             String userEmail = jwtService.extractUsername(jwtToken);
             Pass pass = passRepository.findByUserEmail(userEmail).orElse(null);
@@ -85,11 +75,11 @@ public class CourseController {
             }
             if (Role.ADMIN.equals(pass.getRole()) || Role.STUDENT.equals(pass.getRole())) {
                 List<AllCoursesResponse> coursesWithTeachers = courseService.getAllCourses();
-                return ResponseEntity.ok().body(coursesWithTeachers);
+                return ResponseEntity.ok(coursesWithTeachers);
             } else {
                 User user = userRepository.findByEmail(userEmail);
                 List<AllCoursesResponse> coursesWithoutTeachers = courseService.getAllCoursesForTeachers(user.getId());
-                return ResponseEntity.ok().body(coursesWithoutTeachers);
+                return ResponseEntity.ok(coursesWithoutTeachers);
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to get courses from the catalogue:(");
@@ -97,8 +87,16 @@ public class CourseController {
     }
 
     @PreAuthorize("hasAuthority('TEACHER')")
-    @DeleteMapping("/course/{courseId}")
-    public ResponseEntity<?> deleteCourse(@PathVariable UUID courseId) throws CourseNotFoundException {
+    @PutMapping("/courses/{courseId}")
+    public ResponseEntity<CourseResponse> updateCourse(@PathVariable UUID courseId,
+                                                       @RequestBody CourseRequest request) throws CourseNotFoundException {
+        CourseResponse courseResponse = courseService.updateCourse(courseId, request);
+        return ResponseEntity.ok(courseResponse);
+    }
+
+    @PreAuthorize("hasAuthority('TEACHER')")
+    @DeleteMapping("/courses/{courseId}")
+    public ResponseEntity<String> deleteCourse(@PathVariable UUID courseId) throws CourseNotFoundException {
         courseService.deleteCourseById(courseId);
         return ResponseEntity.ok("The course was deleted successfully!");
     }

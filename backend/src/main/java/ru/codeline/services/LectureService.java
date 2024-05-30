@@ -29,11 +29,11 @@ public class LectureService {
     private final ProgressRepository progressRepository;
 
     @Transactional
-    public Lecture addLecture(UUID courseId, LectureRequest request) throws CourseNotFoundException {
+    public Lecture createLecture(UUID courseId, LectureRequest request) throws CourseNotFoundException {
         Optional<Course> optionalCourse = courseRepository.findById(courseId);
         if (optionalCourse.isPresent()) {
             Course course = optionalCourse.get();
-            Lecture lecture = createLecture(request, course);
+            Lecture lecture = createLectureEntity(request, course);
             // Save the lecture first to get its ID
             Lecture savedLecture = lectureRepository.save(lecture);
             // Adding sections if provided
@@ -75,10 +75,9 @@ public class LectureService {
         Lecture lecture = lectureRepository.findById(lectureId)
                 .orElseThrow(() -> new LectureNotFoundException("Lecture not found with id: " + lectureId));
 
-        return createLectureWithSectionsResponse(lecture);
+        return LectureWithSectionsResponse.createLectureWithSectionsResponse(lecture);
     }
 
-    @Transactional
     public LectureWithSectionsResponse getLectureWithCheck(User user, UUID courseId, UUID lectureId)
             throws CourseNotFoundException, LectureNotFoundException, AccessDeniedException {
 
@@ -94,34 +93,14 @@ public class LectureService {
 
         Lecture currentLecture = progress.getLecture();
         if (currentLecture.getNumInSeq() >= lecture.getNumInSeq()) {
-            return createLectureWithSectionsResponse(lecture);
+            return LectureWithSectionsResponse.createLectureWithSectionsResponse(lecture);
         } else {
             throw new AccessDeniedException("Student does not have access to this lecture yet.");
         }
     }
 
-    private LectureWithSectionsResponse createLectureWithSectionsResponse(Lecture lecture) {
-        List<SectionResponse> sectionResponses = new ArrayList<>();
-        for (Section section : lecture.getSections()) {
-            SectionResponse sectionResponse = SectionResponse.builder()
-                    .sectionId(section.getId())
-                    .numInSeq(section.getNumInSeq())
-                    .title(section.getTitle())
-                    .content(section.getContent())
-                    .build();
-            sectionResponses.add(sectionResponse);
-        }
-
-        return LectureWithSectionsResponse.builder()
-                .lectureId(lecture.getId())
-                .title(lecture.getTitle())
-                .description(lecture.getDescription())
-                .sections(sectionResponses)
-                .build();
-    }
-
     @Transactional
-    public Lecture updateLecture(UUID courseId, UUID lectureId, LectureRequest request) throws LectureNotFoundException, CourseNotFoundException {
+    public Lecture updateLecture(UUID courseId, UUID lectureId, LectureRequest request) throws CourseNotFoundException, LectureNotFoundException {
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new CourseNotFoundException("Course not found with id: " + courseId));
         Lecture lecture = lectureRepository.findById(lectureId)
@@ -141,7 +120,8 @@ public class LectureService {
         return lectureRepository.save(lecture);
     }
 
-    public void deleteLectureById(UUID courseId, UUID lectureId) throws LectureNotFoundException, CourseNotFoundException {
+    @Transactional
+    public void deleteLectureById(UUID courseId, UUID lectureId) throws CourseNotFoundException, LectureNotFoundException {
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new CourseNotFoundException("Course not found with id: " + courseId));
         Lecture lecture = lectureRepository.findById(lectureId)
@@ -156,7 +136,7 @@ public class LectureService {
         courseRepository.save(course);
     }
 
-    private Lecture createLecture(LectureRequest request, Course course) {
+    private Lecture createLectureEntity(LectureRequest request, Course course) {
         Lecture lecture = new Lecture();
         lecture.setNumInSeq(request.getNumInSeq());
         lecture.setTitle(request.getTitle());

@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Questionnaires")
-public class Questionnaire {
+@Table(name = "Quizzes")
+public class Quiz {
     @Id
     @GeneratedValue
     private Integer id;

@@ -42,12 +42,12 @@ public class Lecture {
     @JsonManagedReference
     private List<Section> sections = new ArrayList<>();
 
-    // The owning side - the Questionnaire entity (child), the inverse side - the Course entity (parent)
+    // The owning side - the Quiz entity (child), the inverse side - the Course entity (parent)
     @OneToMany(mappedBy = "lecture",
             orphanRemoval = true,
             cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JsonManagedReference
-    private List<Questionnaire> questionnaires = new ArrayList<>();
+    private List<Quiz> quizzes = new ArrayList<>();
 
     @OneToOne(mappedBy = "lecture", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}) // Bidirectional relationship
     @JsonManagedReference

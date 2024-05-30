@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/course")
+@RequestMapping("/api/v1/courses")
 @RestController
 public class LectureController {
     private final LectureService lectureService;
@@ -34,10 +34,10 @@ public class LectureController {
 
     @PreAuthorize("hasAuthority('TEACHER')")
     @PostMapping("/{courseId}/lecture")
-    public ResponseEntity<?> createLecture(@PathVariable UUID courseId,
+    public ResponseEntity<Lecture> createLecture(@PathVariable UUID courseId,
                                            @RequestBody LectureRequest request) throws CourseNotFoundException {
-        Lecture newLecture = lectureService.addLecture(courseId, request);
-        return ResponseEntity.ok().body(newLecture);
+        Lecture newLecture = lectureService.createLecture(courseId, request);
+        return ResponseEntity.ok(newLecture);
     }
 
     @GetMapping("/{courseId}/lectures")
@@ -46,7 +46,7 @@ public class LectureController {
         return ResponseEntity.ok(lectures);
     }
 
-    @GetMapping("/{courseId/lecture/{lectureId}")
+    @GetMapping("/{courseId/lectures/{lectureId}")
     public ResponseEntity<?> getLecture(@PathVariable UUID courseId,
                                         @PathVariable UUID lectureId,
                                         HttpServletRequest request) {
@@ -66,11 +66,11 @@ public class LectureController {
             }
             if (Role.ADMIN.equals(pass.getRole()) || Role.TEACHER.equals(pass.getRole())) {
                 LectureWithSectionsResponse lectureWithSectionsResponse = lectureService.getLectureWithoutCheck(courseId, lectureId);
-                return ResponseEntity.ok().body(lectureWithSectionsResponse);
+                return ResponseEntity.ok(lectureWithSectionsResponse);
             } else {
                 User user = userRepository.findByEmail(userEmail);
                 LectureWithSectionsResponse lectureWithSectionsResponse = lectureService.getLectureWithCheck(user, courseId, lectureId);
-                return ResponseEntity.ok().body(lectureWithSectionsResponse);
+                return ResponseEntity.ok(lectureWithSectionsResponse);
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to get courses from the catalogue:(");
@@ -78,7 +78,7 @@ public class LectureController {
     }
 
     @PreAuthorize("hasAuthority('TEACHER')")
-    @PutMapping("/{courseId}/lecture/{lectureId}")
+    @PutMapping("/{courseId}/lectures/{lectureId}")
     public ResponseEntity<Lecture> updateLecture(@PathVariable UUID courseId,
                                                  @PathVariable UUID lectureId,
                                                  @RequestBody LectureRequest lectureRequest) throws LectureNotFoundException, CourseNotFoundException {
@@ -87,8 +87,8 @@ public class LectureController {
     }
 
     @PreAuthorize("hasAuthority('TEACHER')")
-    @DeleteMapping("/{courseId}/lecture/{lectureId}")
-    public ResponseEntity<?> deleteLecture(@PathVariable UUID courseId,
+    @DeleteMapping("/{courseId}/lectures/{lectureId}")
+    public ResponseEntity<String> deleteLecture(@PathVariable UUID courseId,
                                            @PathVariable UUID lectureId) throws LectureNotFoundException, CourseNotFoundException {
         lectureService.deleteLectureById(courseId, lectureId);
         return ResponseEntity.ok("The course was deleted successfully!");
