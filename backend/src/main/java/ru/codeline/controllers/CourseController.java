@@ -6,8 +6,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import ru.codeline.dto.CourseResponse;
+import ru.codeline.dto.AllCoursesResponse;
 import ru.codeline.dto.CourseRequest;
+import ru.codeline.dto.CourseResponse;
+import ru.codeline.dto.LectureResponse;
+import ru.codeline.exceptions.CourseNotFoundException;
+import ru.codeline.models.course.Course;
 import ru.codeline.models.user.Pass;
 import ru.codeline.models.user.Role;
 import ru.codeline.models.user.User;
@@ -28,16 +32,49 @@ public class CourseController {
     private final CourseService courseService;
     private final JwtService jwtService;
 
-    @GetMapping("/courses")
-    @ResponseBody
-    public ResponseEntity<?> getAllCourses(
-            HttpServletRequest request
-    ) {
+    @PreAuthorize("hasAuthority('TEACHER')")
+    @PostMapping("/course")
+    public ResponseEntity<?> createCourse(@RequestBody CourseRequest courseRequest,
+                                          HttpServletRequest request) {
         // Retrieve the JWT token from the request attributes
         String jwtToken = (String) request.getAttribute("jwtToken");
 
         if (jwtToken == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("JWT token not found in cookies");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("JWT token not found in cookies:(");
+        }
+
+        try {
+            String teacherEmail = jwtService.extractUsername(jwtToken);
+            User teacher = userRepository.findByEmail(teacherEmail);
+
+            if (teacher == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User with email " + teacherEmail + " not found:(");
+            }
+
+            Course newCourse = courseService.createCourse(courseRequest, teacher);
+
+            return ResponseEntity.ok().body(newCourse);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create a new course:(");
+        }
+    }
+
+    @PreAuthorize("hasAuthority('TEACHER')")
+    @PutMapping("/course/{courseId}")
+    public ResponseEntity<CourseResponse> updateCourse(@PathVariable UUID courseId,
+                                                       @RequestBody CourseRequest request) throws CourseNotFoundException {
+        CourseResponse courseResponse = courseService.updateCourse(courseId, request);
+        return ResponseEntity.ok(courseResponse);
+    }
+
+    @GetMapping("/courses")
+    // @ResponseBody
+    public ResponseEntity<?> getAllCourses(HttpServletRequest request) {
+        // Retrieve the JWT token from the request attributes
+        String jwtToken = (String) request.getAttribute("jwtToken");
+
+        if (jwtToken == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("JWT token not found in cookies:(");
         }
 
         try {
@@ -45,47 +82,25 @@ public class CourseController {
             Pass pass = passRepository.findByUserEmail(userEmail).orElse(null);
 
             if (pass == null) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User with email " + userEmail + " not found");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User with email " + userEmail + " not found:(");
             }
-
             if (Role.ADMIN.equals(pass.getRole()) || Role.STUDENT.equals(pass.getRole())) {
-                List<CourseResponse> coursesWithTeachers = courseService.getAllCourses();
+                List<AllCoursesResponse> coursesWithTeachers = courseService.getAllCourses();
                 return ResponseEntity.ok().body(coursesWithTeachers);
             } else {
                 User user = userRepository.findByEmail(userEmail);
-                List<CourseResponse> coursesWithoutTeachers = courseService.getAllCoursesForTeachers(user.getId());
+                List<AllCoursesResponse> coursesWithoutTeachers = courseService.getAllCoursesForTeachers(user.getId());
                 return ResponseEntity.ok().body(coursesWithoutTeachers);
             }
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to get courses from the catalogue:(");
         }
     }
 
     @PreAuthorize("hasAuthority('TEACHER')")
-    @PostMapping("/course")
-    public ResponseEntity<String> createCourse(
-            @RequestBody CourseRequest courseRequest,
-            HttpServletRequest request
-    ) {
-        // Retrieve the JWT token from the request attributes
-        String jwtToken = (String) request.getAttribute("jwtToken");
-
-        if (jwtToken == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("JWT token not found in cookies");
-        }
-
-        try {
-            String teacherEmail = jwtService.extractUsername(jwtToken);
-
-            User teacher = userRepository.findByEmail(teacherEmail);
-            if (teacher == null) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User with email " + teacherEmail + " not found");
-            }
-
-            courseService.createCourse(courseRequest, teacher);
-            return ResponseEntity.ok("New course created successfully!");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create course: " + e.getMessage());
-        }
+    @DeleteMapping("/course/{courseId}")
+    public ResponseEntity<?> deleteCourse(@PathVariable UUID courseId) throws CourseNotFoundException {
+        courseService.deleteCourseById(courseId);
+        return ResponseEntity.ok("The course was deleted successfully!");
     }
 }

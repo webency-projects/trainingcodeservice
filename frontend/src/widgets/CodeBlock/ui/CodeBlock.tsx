@@ -68,6 +68,5 @@ return (
         </div>
     </div>
 )
-}
 
 export default CodeBlock;

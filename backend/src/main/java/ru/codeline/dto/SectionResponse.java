@@ -1,18 +1,18 @@
 package ru.codeline.dto;
 
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
-
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CourseResponse { // Used when updating a course
-    private UUID id;
+public class SectionResponse {
+    private Integer sectionId;
+    private Integer numInSeq;
     private String title;
-    private String language;
+    private String content;
 }

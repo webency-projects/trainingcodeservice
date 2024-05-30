@@ -42,15 +42,6 @@ public class Lecture {
     @JsonManagedReference
     private List<Section> sections = new ArrayList<>();
 
-    /*public void addSection(SectionRequest request) {
-        Section section = new Section();
-        section.setNumInSeq(request.getNumInSeq());
-        section.setTitle(request.getTitle());
-        section.setContent(request.getContent());
-        section.setLecture(this);
-        this.sections.add(section);
-    }*/
-
     // The owning side - the Questionnaire entity (child), the inverse side - the Course entity (parent)
     @OneToMany(mappedBy = "lecture",
             orphanRemoval = true,
@@ -58,7 +49,7 @@ public class Lecture {
     @JsonManagedReference
     private List<Questionnaire> questionnaires = new ArrayList<>();
 
-    @OneToOne(mappedBy = "lecture") // Bidirectional relationship
+    @OneToOne(mappedBy = "lecture", cascade = {CascadeType.PERSIST, CascadeType.REMOVE}) // Bidirectional relationship
     @JsonManagedReference
     private Test test;
 }
