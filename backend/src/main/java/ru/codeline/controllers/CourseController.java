@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import ru.codeline.dto.AllCoursesResponse;
 import ru.codeline.dto.CourseRequest;
 import ru.codeline.dto.CourseResponse;
-import ru.codeline.dto.LectureResponse;
 import ru.codeline.exceptions.CourseNotFoundException;
 import ru.codeline.models.course.Course;
 import ru.codeline.models.user.Pass;

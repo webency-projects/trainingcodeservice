@@ -79,16 +79,17 @@ public class LectureController {
 
     @PreAuthorize("hasAuthority('TEACHER')")
     @PutMapping("/{courseId}/lecture/{lectureId}")
-    public ResponseEntity<Lecture> updateLecture(@PathVariable UUID courseId, @PathVariable UUID lectureId,
-                                                 @RequestBody LectureRequest lectureRequest) throws LectureNotFoundException {
-        Lecture updatedLecture = lectureService.updateLecture(lectureId, lectureRequest);
+    public ResponseEntity<Lecture> updateLecture(@PathVariable UUID courseId,
+                                                 @PathVariable UUID lectureId,
+                                                 @RequestBody LectureRequest lectureRequest) throws LectureNotFoundException, CourseNotFoundException {
+        Lecture updatedLecture = lectureService.updateLecture(courseId, lectureId, lectureRequest);
         return ResponseEntity.ok(updatedLecture);
     }
 
     @PreAuthorize("hasAuthority('TEACHER')")
     @DeleteMapping("/{courseId}/lecture/{lectureId}")
     public ResponseEntity<?> deleteLecture(@PathVariable UUID courseId,
-                                           @PathVariable UUID lectureId) throws LectureNotFoundException {
+                                           @PathVariable UUID lectureId) throws LectureNotFoundException, CourseNotFoundException {
         lectureService.deleteLectureById(courseId, lectureId);
         return ResponseEntity.ok("The course was deleted successfully!");
     }

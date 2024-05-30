@@ -121,37 +121,38 @@ public class LectureService {
     }
 
     @Transactional
-    public Lecture updateLecture(UUID lectureId, LectureRequest request) throws LectureNotFoundException {
-        Optional<Lecture> optionalLecture = lectureRepository.findById(lectureId);
-        if (optionalLecture.isPresent()) {
-            Lecture lecture = optionalLecture.get();
-            lecture.setTitle(request.getTitle());
-            lecture.setDescription(request.getDescription());
+    public Lecture updateLecture(UUID courseId, UUID lectureId, LectureRequest request) throws LectureNotFoundException, CourseNotFoundException {
+        Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new CourseNotFoundException("Course not found with id: " + courseId));
+        Lecture lecture = lectureRepository.findById(lectureId)
+                .orElseThrow(() -> new LectureNotFoundException("Lecture not found with id: " + lectureId));
 
-            List<Section> existingSections = sectionRepository.findByLecture(lecture);
-            if (!existingSections.isEmpty()) {
-                lecture.getSections().clear();
-            }
-            addSections(lecture, request.getSections());
+        // Update the lecture details
+        lecture.setTitle(request.getTitle());
+        lecture.setDescription(request.getDescription());
 
-            return lectureRepository.save(lecture);
-        } else {
-            throw new LectureNotFoundException("Lecture not found with id: " + lectureId);
+        // Clear existing sections and add new ones
+        List<Section> existingSections = sectionRepository.findByLecture(lecture);
+        if (!existingSections.isEmpty()) {
+            lecture.getSections().clear();
         }
+        addSections(lecture, request.getSections());
+
+        return lectureRepository.save(lecture);
     }
 
-    public void deleteLectureById(UUID lectureId, UUID courseId) throws LectureNotFoundException {
-        Optional<Lecture> optionalLecture = lectureRepository.findById(lectureId);
-        if (optionalLecture.isEmpty()) {
-            throw new LectureNotFoundException("Lecture not found with id: " + lectureId);
-        }
-        Lecture lecture = optionalLecture.get();
-        Course course = lecture.getCourse();
+    public void deleteLectureById(UUID courseId, UUID lectureId) throws LectureNotFoundException, CourseNotFoundException {
+        Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new CourseNotFoundException("Course not found with id: " + courseId));
+        Lecture lecture = lectureRepository.findById(lectureId)
+                .orElseThrow(() -> new LectureNotFoundException("Lecture not found with id: " + lectureId));
 
         // Update the course's numberOfLectures
         course.setNumOfLect(course.getNumOfLect() - 1);
 
+        // Remove the lecture from the course's list of lectures
         course.getLectures().remove(lecture);
+
         courseRepository.save(course);
     }
 
