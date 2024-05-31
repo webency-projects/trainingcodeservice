@@ -11,11 +11,10 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class LectureWithDetailsRequest {
+public class LectureRequest {
+    private Integer numInSeq;
     private String title;
     private String description;
     private List<SectionRequest> sections;
-    private List<QuestionnaireRequest> questionnaires;
-    private TestRequest test;
 }
 

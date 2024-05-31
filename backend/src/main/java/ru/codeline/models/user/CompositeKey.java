@@ -16,4 +16,9 @@ public class CompositeKey implements Serializable {
     @ManyToOne
     @JoinColumn(name = "course_id")
     private Course course;
+
+    public CompositeKey(User user, Course course) {
+        this.user = user;
+        this.course = course;
+    }
 }

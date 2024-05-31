@@ -2,10 +2,7 @@ package ru.codeline.models.course;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,5 +38,6 @@ public class Course {
             orphanRemoval = true,
             cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JsonManagedReference
+    @ToString.Exclude // Exclude from generated toString() to avoid circular reference
     private List<Lecture> lectures = new ArrayList<>();
 }

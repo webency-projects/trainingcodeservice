@@ -11,8 +11,10 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CourseResponse { // Used when updating a course
+public class LectureResponse {
     private UUID id;
+    private Integer numInSeq;
     private String title;
-    private String language;
+    private String description;
+    private Integer numOfSections;
 }
