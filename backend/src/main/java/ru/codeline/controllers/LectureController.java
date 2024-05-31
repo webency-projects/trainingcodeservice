@@ -35,7 +35,7 @@ public class LectureController {
     @PreAuthorize("hasAuthority('TEACHER')")
     @PostMapping("/{courseId}/lecture")
     public ResponseEntity<Lecture> createLecture(@PathVariable UUID courseId,
-                                           @RequestBody LectureRequest request) throws CourseNotFoundException {
+                                                 @RequestBody LectureRequest request) throws CourseNotFoundException {
         Lecture newLecture = lectureService.createLecture(courseId, request);
         return ResponseEntity.ok(newLecture);
     }
@@ -46,7 +46,7 @@ public class LectureController {
         return ResponseEntity.ok(lectures);
     }
 
-    @GetMapping("/{courseId/lectures/{lectureId}")
+    @GetMapping("/{courseId}/lectures/{lectureId}")
     public ResponseEntity<?> getLecture(@PathVariable UUID courseId,
                                         @PathVariable UUID lectureId,
                                         HttpServletRequest request) {
@@ -79,18 +79,27 @@ public class LectureController {
 
     @PreAuthorize("hasAuthority('TEACHER')")
     @PutMapping("/{courseId}/lectures/{lectureId}")
+    public ResponseEntity<LectureWithSectionsResponse> updateLecture(@PathVariable UUID courseId,
+                                                                     @PathVariable UUID lectureId,
+                                                                     @RequestBody LectureRequest lectureRequest) throws LectureNotFoundException, CourseNotFoundException {
+        LectureWithSectionsResponse updatedLecture = lectureService.updateLecture(courseId, lectureId, lectureRequest);
+        return ResponseEntity.ok(updatedLecture);
+    }
+
+    /*@PreAuthorize("hasAuthority('TEACHER')")
+    @PutMapping("/{courseId}/lectures/{lectureId}")
     public ResponseEntity<Lecture> updateLecture(@PathVariable UUID courseId,
                                                  @PathVariable UUID lectureId,
                                                  @RequestBody LectureRequest lectureRequest) throws LectureNotFoundException, CourseNotFoundException {
         Lecture updatedLecture = lectureService.updateLecture(courseId, lectureId, lectureRequest);
         return ResponseEntity.ok(updatedLecture);
-    }
+    }*/
 
     @PreAuthorize("hasAuthority('TEACHER')")
     @DeleteMapping("/{courseId}/lectures/{lectureId}")
     public ResponseEntity<String> deleteLecture(@PathVariable UUID courseId,
-                                           @PathVariable UUID lectureId) throws LectureNotFoundException, CourseNotFoundException {
+                                                @PathVariable UUID lectureId) throws LectureNotFoundException, CourseNotFoundException {
         lectureService.deleteLectureById(courseId, lectureId);
-        return ResponseEntity.ok("The course was deleted successfully!");
+        return ResponseEntity.ok("The lecture was deleted successfully!");
     }
 }

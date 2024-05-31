@@ -13,7 +13,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LectureWithSectionsResponse {
-    private UUID lectureId;
+    private UUID id;
+    private Integer numInSeq;
     private String title;
     private String description;
     private List<SectionResponse> sections;
@@ -22,7 +23,7 @@ public class LectureWithSectionsResponse {
         List<SectionResponse> sectionResponses = new ArrayList<>();
         for (Section section : lecture.getSections()) {
             SectionResponse sectionResponse = SectionResponse.builder()
-                    // .sectionId(section.getId())
+                    .id(section.getId())
                     .numInSeq(section.getNumInSeq())
                     .title(section.getTitle())
                     .content(section.getContent())
@@ -31,7 +32,8 @@ public class LectureWithSectionsResponse {
         }
 
         return LectureWithSectionsResponse.builder()
-                .lectureId(lecture.getId())
+                .id(lecture.getId())
+                .numInSeq(lecture.getNumInSeq())
                 .title(lecture.getTitle())
                 .description(lecture.getDescription())
                 .sections(sectionResponses)

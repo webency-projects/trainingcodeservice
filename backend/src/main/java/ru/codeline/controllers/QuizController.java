@@ -22,7 +22,8 @@ public class QuizController {
 
     @PreAuthorize("hasAuthority('TEACHER')")
     @PostMapping("/{lectureId}/quiz")
-    public ResponseEntity<?> createQuiz(@PathVariable UUID lectureId, QuizRequest request) throws LectureNotFoundException {
+    public ResponseEntity<Quiz> createQuiz(@PathVariable UUID lectureId,
+                                           @RequestBody QuizRequest request) throws LectureNotFoundException {
         Quiz newQuiz = quizService.createQuiz(lectureId, request);
         return ResponseEntity.ok(newQuiz);
     }
@@ -35,7 +36,8 @@ public class QuizController {
 
     @PreAuthorize("hasAnyAuthority('TEACHER', 'ADMIN')")
     @GetMapping("/{lectureId}/quizzes/{quizId}")
-    public ResponseEntity<Quiz> getQuiz(@PathVariable UUID lectureId, @PathVariable Integer quizId) throws QuizNotFoundException, LectureNotFoundException {
+    public ResponseEntity<Quiz> getQuiz(@PathVariable UUID lectureId,
+                                        @PathVariable Integer quizId) throws QuizNotFoundException, LectureNotFoundException {
         return ResponseEntity.ok(quizService.getQuizByLectureId(lectureId, quizId));
     }
 
@@ -43,14 +45,15 @@ public class QuizController {
     @PutMapping("/{lectureId}/quizzes/{quizId}")
     public ResponseEntity<Quiz> updateQuiz(@PathVariable UUID lectureId,
                                            @PathVariable Integer quizId,
-                                           QuizRequest request) throws QuizNotFoundException, LectureNotFoundException {
+                                           @RequestBody QuizRequest request) throws QuizNotFoundException, LectureNotFoundException {
         Quiz updatedQuiz = quizService.updateQuiz(lectureId, quizId, request);
         return ResponseEntity.ok(updatedQuiz);
     }
 
     @PreAuthorize("hasAnyAuthority('TEACHER')")
     @DeleteMapping("/{lectureId}/quizzes/{quizId}")
-    public ResponseEntity<String> deleteQuiz(@PathVariable UUID lectureId, Integer quizId) throws QuizNotFoundException, LectureNotFoundException {
+    public ResponseEntity<String> deleteQuiz(@PathVariable UUID lectureId,
+                                             @PathVariable Integer quizId) throws QuizNotFoundException, LectureNotFoundException {
         quizService.deleteQuiz(lectureId, quizId);
         return ResponseEntity.ok("The quiz was deleted successfully!");
     }

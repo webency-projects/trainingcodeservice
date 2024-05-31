@@ -30,19 +30,17 @@ public class LectureService {
 
     @Transactional
     public Lecture createLecture(UUID courseId, LectureRequest request) throws CourseNotFoundException {
-        Optional<Course> optionalCourse = courseRepository.findById(courseId);
-        if (optionalCourse.isPresent()) {
-            Course course = optionalCourse.get();
-            Lecture lecture = createLectureEntity(request, course);
-            // Save the lecture first to get its ID
-            Lecture savedLecture = lectureRepository.save(lecture);
-            // Adding sections if provided
-            addSections(savedLecture, request.getSections());
+        Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new CourseNotFoundException("Course not found with id: " + courseId));
 
-            return lectureRepository.save(savedLecture);
-        } else {
-            throw new CourseNotFoundException("Course not found with id: " + courseId);
-        }
+        // Create and save the lecture first to get its ID
+        Lecture newLecture = lectureRepository.save(createLectureEntity(request, course));
+
+        // Add sections if provided
+        addSections(newLecture, request.getSections());
+
+        // Save the lecture again to persist sections
+        return lectureRepository.save(newLecture);
     }
 
     public List<LectureResponse> getAllLecturesByCourseId(UUID courseId) throws CourseNotFoundException {
@@ -68,7 +66,6 @@ public class LectureService {
 
     public LectureWithSectionsResponse getLectureWithoutCheck(UUID courseId, UUID lectureId)
             throws CourseNotFoundException, LectureNotFoundException {
-
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new CourseNotFoundException("Course not found with id: " + courseId));
 
@@ -100,38 +97,65 @@ public class LectureService {
     }
 
     @Transactional
-    public Lecture updateLecture(UUID courseId, UUID lectureId, LectureRequest request) throws CourseNotFoundException, LectureNotFoundException {
+    public LectureWithSectionsResponse updateLecture(UUID courseId, UUID lectureId, LectureRequest request) throws CourseNotFoundException, LectureNotFoundException {
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new CourseNotFoundException("Course not found with id: " + courseId));
-        Lecture lecture = lectureRepository.findById(lectureId)
+        Lecture updatedLecture = lectureRepository.findById(lectureId)
                 .orElseThrow(() -> new LectureNotFoundException("Lecture not found with id: " + lectureId));
 
         // Update the lecture details
-        lecture.setTitle(request.getTitle());
-        lecture.setDescription(request.getDescription());
+        updatedLecture.setNumInSeq(request.getNumInSeq());
+        updatedLecture.setTitle(request.getTitle());
+        updatedLecture.setDescription(request.getDescription());
 
         // Clear existing sections and add new ones
-        List<Section> existingSections = sectionRepository.findByLecture(lecture);
+        List<Section> existingSections = sectionRepository.findByLecture(updatedLecture);
         if (!existingSections.isEmpty()) {
-            lecture.getSections().clear();
+            updatedLecture.getSections().clear();
         }
-        addSections(lecture, request.getSections());
+        addSections(updatedLecture, request.getSections());
 
-        return lectureRepository.save(lecture);
+        // Save the updated lecture
+        Lecture savedLecture = lectureRepository.save(updatedLecture);
+
+        // Convert the saved lecture to a DTO and return it
+        return LectureWithSectionsResponse.createLectureWithSectionsResponse(savedLecture);
     }
+
+    /*@Transactional
+    public Lecture updateLecture(UUID courseId, UUID lectureId, LectureRequest request) throws CourseNotFoundException, LectureNotFoundException {
+        Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new CourseNotFoundException("Course not found with id: " + courseId));
+        Lecture updatedLecture = lectureRepository.findById(lectureId)
+                .orElseThrow(() -> new LectureNotFoundException("Lecture not found with id: " + lectureId));
+
+        // Update the lecture details
+        updatedLecture.setNumInSeq(request.getNumInSeq());
+        updatedLecture.setTitle(request.getTitle());
+        updatedLecture.setDescription(request.getDescription());
+
+        // Clear existing sections and add new ones
+        List<Section> existingSections = sectionRepository.findByLecture(updatedLecture);
+        if (!existingSections.isEmpty()) {
+            updatedLecture.getSections().clear();
+        }
+        addSections(updatedLecture, request.getSections());
+
+        return lectureRepository.save(updatedLecture);
+    }*/
 
     @Transactional
     public void deleteLectureById(UUID courseId, UUID lectureId) throws CourseNotFoundException, LectureNotFoundException {
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new CourseNotFoundException("Course not found with id: " + courseId));
-        Lecture lecture = lectureRepository.findById(lectureId)
+        Lecture deletedLecture = lectureRepository.findById(lectureId)
                 .orElseThrow(() -> new LectureNotFoundException("Lecture not found with id: " + lectureId));
 
         // Update the course's numberOfLectures
         course.setNumOfLect(course.getNumOfLect() - 1);
 
         // Remove the lecture from the course's list of lectures
-        course.getLectures().remove(lecture);
+        course.getLectures().remove(deletedLecture);
 
         courseRepository.save(course);
     }
@@ -153,11 +177,13 @@ public class LectureService {
         if (sections != null) {
             for (SectionRequest sectionRequest : sections) {
                 Section section = new Section();
+                section.setNumInSeq(sectionRequest.getNumInSeq());
                 section.setTitle(sectionRequest.getTitle());
                 section.setContent(sectionRequest.getContent());
                 section.setLecture(lecture);
 
                 lecture.getSections().add(section); // CascadeType.PERSIST will handle saving
+                sectionRepository.save(section);
             }
         }
     }

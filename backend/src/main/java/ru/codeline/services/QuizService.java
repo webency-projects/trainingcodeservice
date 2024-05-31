@@ -1,5 +1,6 @@
 package ru.codeline.services;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.codeline.dto.QuizRequest;
@@ -22,38 +23,27 @@ public class QuizService {
     private final LectureRepository lectureRepository;
     private final QuizRepository quizRepository;
 
+    @Transactional
     public Quiz createQuiz(UUID lectureId, QuizRequest request) throws LectureNotFoundException {
         Lecture lecture = lectureRepository.findById(lectureId)
                 .orElseThrow(() -> new LectureNotFoundException("Lecture not found with id: " + lectureId));
-        Quiz quiz = new Quiz();
-        quiz.setQuestion(request.getQuestion());
+        Quiz newQuiz = new Quiz();
+        newQuiz.setQuestion(request.getQuestion());
+
         List<String> options = request.getOptions();
-        quiz.setOpt1(options.get(0));
-        quiz.setOpt2(options.get(1));
-        quiz.setOpt3(options.get(2));
-        quiz.setOpt4(options.get(3));
-        quiz.setCorrAns(request.getCorrAns());
-        quiz.setLecture(lecture);
+        if (options == null || options.size() < 4) {
+            throw new IllegalArgumentException("Options must contain at least 4 elements!");
+        }
+        newQuiz.setOpt1(options.get(0));
+        newQuiz.setOpt2(options.get(1));
+        newQuiz.setOpt3(options.get(2));
+        newQuiz.setOpt4(options.get(3));
+        newQuiz.setCorrAns(request.getCorrAns());
+        newQuiz.setLecture(lecture);
 
-        lecture.getQuizzes().add(quiz);
-        return quiz;
-    }
+        lecture.getQuizzes().add(newQuiz);
 
-    public Quiz updateQuiz(UUID lectureId, Integer quizId, QuizRequest request) throws LectureNotFoundException, QuizNotFoundException {
-        Lecture lecture = lectureRepository.findById(lectureId)
-                .orElseThrow(() -> new LectureNotFoundException("Lecture not found with id: " + lectureId));
-        Quiz quiz = quizRepository.findById(quizId)
-                .orElseThrow(() -> new QuizNotFoundException("Quiz not found with id: " + quizId));
-
-        quiz.setQuestion(request.getQuestion());
-        quiz.setOpt1(request.getOptions().get(0));
-        quiz.setOpt2(request.getOptions().get(1));
-        quiz.setOpt3(request.getOptions().get(2));
-        quiz.setOpt4(request.getOptions().get(3));
-        quiz.setCorrAns(request.getCorrAns());
-
-        // Save the updated quiz
-        return quizRepository.save(quiz);
+        return quizRepository.save(newQuiz);
     }
 
     public List<QuizResponse> getAllQuizzesByLectureId(UUID lectureId) throws LectureNotFoundException {
@@ -83,6 +73,25 @@ public class QuizService {
         throw new QuizNotFoundException("Quiz not found with id: " + quizId);
     }
 
+    @Transactional
+    public Quiz updateQuiz(UUID lectureId, Integer quizId, QuizRequest request) throws LectureNotFoundException, QuizNotFoundException {
+        Lecture lecture = lectureRepository.findById(lectureId)
+                .orElseThrow(() -> new LectureNotFoundException("Lecture not found with id: " + lectureId));
+        Quiz updatedQuiz = quizRepository.findById(quizId)
+                .orElseThrow(() -> new QuizNotFoundException("Quiz not found with id: " + quizId));
+
+        updatedQuiz.setQuestion(request.getQuestion());
+        updatedQuiz.setOpt1(request.getOptions().get(0));
+        updatedQuiz.setOpt2(request.getOptions().get(1));
+        updatedQuiz.setOpt3(request.getOptions().get(2));
+        updatedQuiz.setOpt4(request.getOptions().get(3));
+        updatedQuiz.setCorrAns(request.getCorrAns());
+
+        // Save the updated quiz
+        return quizRepository.save(updatedQuiz);
+    }
+
+    @Transactional
     public void deleteQuiz(UUID lectureId, Integer quizId) throws LectureNotFoundException, QuizNotFoundException {
         Lecture lecture = lectureRepository.findById(lectureId)
                 .orElseThrow(() -> new LectureNotFoundException("Lecture not found with id: " + lectureId));

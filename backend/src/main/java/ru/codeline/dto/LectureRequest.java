@@ -12,9 +12,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LectureRequest {
+    private Integer numInSeq;
     private String title;
     private String description;
-    private Integer numInSeq;
     private List<SectionRequest> sections;
 }
 

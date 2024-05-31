@@ -7,5 +7,4 @@ import ru.codeline.models.course.Quiz;
 import java.util.List;
 
 public interface QuizRepository extends JpaRepository<Quiz, Integer> {
-    List<Quiz> findByLecture(Lecture lecture);
 }

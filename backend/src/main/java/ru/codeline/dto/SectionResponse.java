@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SectionResponse {
-    private Integer sectionId;
+    private Integer id;
     private Integer numInSeq;
     private String title;
     private String content;

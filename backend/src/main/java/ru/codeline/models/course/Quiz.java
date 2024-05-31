@@ -2,10 +2,7 @@ package ru.codeline.models.course;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @Builder
@@ -20,6 +17,7 @@ public class Quiz {
 
     @ManyToOne
     @JsonBackReference
+    @ToString.Exclude
     @JoinColumn(name = "lecture_id")
     private Lecture lecture;
 

@@ -23,28 +23,13 @@ public class CourseService {
     private final UserRepository userRepository;
 
     public Course createCourse(CourseRequest courseRequest, User teacherId) {
-        Course course = new Course();
-        course.setTitle(courseRequest.getTitle());
-        course.setLanguage(courseRequest.getLanguage());
-        course.setUser(teacherId);
-        courseRepository.save(course);
+        Course newCourse = new Course();
+        newCourse.setTitle(courseRequest.getTitle());
+        newCourse.setLanguage(courseRequest.getLanguage());
+        newCourse.setUser(teacherId);
+        courseRepository.save(newCourse);
 
-        return course;
-    }
-
-    public CourseResponse updateCourse(UUID courseId, CourseRequest request) throws CourseNotFoundException{
-        Optional<Course> optionalCourse = courseRepository.findById(courseId);
-        if (optionalCourse.isPresent()) {
-            Course updatedCourse = optionalCourse.get();
-            updatedCourse.setTitle(request.getTitle());
-            updatedCourse.setLanguage(request.getLanguage());
-
-            courseRepository.save(updatedCourse);
-
-            return new CourseResponse(updatedCourse.getId(), updatedCourse.getTitle(), updatedCourse.getLanguage());
-        } else {
-            throw new CourseNotFoundException("Course not found with id: " + courseId);
-        }
+        return newCourse;
     }
 
     public List<AllCoursesResponse> getAllCourses() {
@@ -82,6 +67,21 @@ public class CourseService {
         }
 
         return coursesForTeachers;
+    }
+
+    public CourseResponse updateCourse(UUID courseId, CourseRequest request) throws CourseNotFoundException{
+        Optional<Course> optionalCourse = courseRepository.findById(courseId);
+        if (optionalCourse.isPresent()) {
+            Course updatedCourse = optionalCourse.get();
+            updatedCourse.setTitle(request.getTitle());
+            updatedCourse.setLanguage(request.getLanguage());
+
+            courseRepository.save(updatedCourse);
+
+            return new CourseResponse(updatedCourse.getId(), updatedCourse.getTitle(), updatedCourse.getLanguage());
+        } else {
+            throw new CourseNotFoundException("Course not found with id: " + courseId);
+        }
     }
 
     public void deleteCourseById(UUID courseId) throws CourseNotFoundException {
