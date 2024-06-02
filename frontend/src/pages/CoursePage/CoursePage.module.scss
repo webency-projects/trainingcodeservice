@@ -1,5 +1,5 @@
 .CoursePage {
-    background: var(--bg-color);
+    background: var(--bg-base);
     width: 100%;
     min-height: 100vh;
     display: flex;
@@ -7,7 +7,7 @@
 
 .userPanel {
     position: relative;
-    background: var(--dark-lighter);
+    background: var(--bg-secondary);
     flex: 1 0 auto;
     display: flex;
     padding: 4rem 1rem 1rem 4rem;
@@ -15,7 +15,7 @@
 
 .contentPanel {
     position: relative;
-    background: var(--dark-darker);
+    background: var(--bg-base);
     height: 100vh;
     flex: 1 1 0;
     display: flex;

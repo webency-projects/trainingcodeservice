@@ -4,8 +4,8 @@ import cls from './SignIn.module.scss'
 import {Input} from "@shared/ui/Input/Input.tsx";
 import {Button} from "@shared/ui/Buttton/Button.tsx";
 import {useState} from "react";
-import {UserAuth} from "@entities/user/model/UserTypes.ts";
-import AuthService from "@shared/api/services/AuthService.ts";
+import AuthService from "@shared/api/auth/auth.service.ts";
+
 
 
 interface SignInProps {
@@ -21,8 +21,7 @@ const SignIn = (props: SignInProps) => {
     const onSubmit = async () => {
         if (email?.trim().length === 0) return;
         if (password?.trim().length === 0) return;
-        const user:UserAuth = {email, password}
-        await AuthService.login(user).then(res => {
+        await AuthService.login(email, password).then(res => {
             console.log(res);
         });
     }

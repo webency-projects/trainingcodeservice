@@ -1,5 +1,4 @@
 
-
 .wrapper {
     margin: 1rem 0;
     width: 100%;
@@ -20,7 +19,7 @@
 }
 .groupDouble {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 2rem;
     margin-bottom: 1rem;
     h2 {

@@ -7,16 +7,17 @@ import {ExecutionControlPanel} from "@features/ExecutionControlPanel/ExecutionCo
 
 interface NavbarProps {
     classname?: string;
+    showControl?: boolean;
 }
 
 const Navbar = (props: NavbarProps) => {
-    const {classname = ""} = props;
+    const {classname = "", showControl = true} = props;
     return (
         <div className={cNames(cls.Navbar, {}, [classname])}>
             <div className={cls.navbarLogo}>
                 <GiBrokenWall/> CodingLine
             </div>
-            <ExecutionControlPanel />
+            {showControl && <ExecutionControlPanel />}
             <div className={cls.navbarMenu}>
                 <ThemeSwitcher/>
             </div>

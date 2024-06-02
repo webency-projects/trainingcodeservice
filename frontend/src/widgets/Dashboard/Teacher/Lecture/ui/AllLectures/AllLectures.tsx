@@ -20,7 +20,7 @@ const AllLectures = (props: AllLecturesProps) => {
                 <table className={cls.table}>
                     <thead>
                         <tr>
-                            <th>id</th>
+                            <th>№</th>
                             <th>Название</th>
                             <th>Описание</th>
                             <th></th>

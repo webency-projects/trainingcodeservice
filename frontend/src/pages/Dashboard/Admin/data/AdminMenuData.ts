@@ -4,8 +4,8 @@ export const adminMenuData: SidebarDataType = [
     {
         label: 'Управление курсом',
         items: [
-            { label: 'Главная', icon: 'pi pi-fw pi-home', to: '' },
             { label: 'Преподаватели', icon: 'pi pi-fw pi-server', to: 'teachers' },
+            { label: 'Студенты', icon: 'pi pi-fw pi-home', to: '' },
         ]
     },
     {

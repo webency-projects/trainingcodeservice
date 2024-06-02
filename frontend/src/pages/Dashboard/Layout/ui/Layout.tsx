@@ -10,6 +10,7 @@ import {DashboardMenu, SidebarDataType} from "@shared/ui/DashboardMenu";
 import {SlLogout} from "react-icons/sl";
 import { LuSettings } from "react-icons/lu";
 import { PiUserCircle } from "react-icons/pi";
+import {ThemeSwitcher} from "@shared/ui/ThemeSwitcher";
 interface LayoutProps {
     classname?: string;
     sidebarData: SidebarDataType
@@ -29,6 +30,7 @@ const Layout = (props: LayoutProps) => {
                     <BsList/>
                 </Button>
                 <div className={cls.topMenu}>
+                    <ThemeSwitcher/>
                     <Button theme={ButtonTheme.CLEAR}>
                         <PiUserCircle className={cls.icon} size={28} />
                     </Button>

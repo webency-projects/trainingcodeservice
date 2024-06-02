@@ -5,7 +5,7 @@ import {Input} from "@shared/ui/Input/Input.tsx";
 import {Button} from "@shared/ui/Buttton/Button.tsx";
 import {useState} from "react";
 import {UserRegister} from "@entities/user/model/UserTypes.ts";
-import AuthService from "@shared/api/services/AuthService.ts";
+import publicAuthService from "@shared/api/services/publicAuthService.ts";
 
 interface RegisterProps {
     classname?: string;
@@ -14,7 +14,6 @@ interface RegisterProps {
 const initForm:UserRegister = {
     firstName: "",
     lastName: "",
-    inviteToken: "",
     email: "",
     password:""
 }
@@ -22,7 +21,8 @@ const Register = (props: RegisterProps) => {
     const {classname = ""} = props;
     const [formData, setFormData] = useState<UserRegister>(initForm)
     const onSubmit = async () => {
-        await AuthService.register(formData).then(res => {
+        await publicAuthService.register(formData)
+            .then(res => {
                 console.log(res);
             }
         );
@@ -32,7 +32,7 @@ const Register = (props: RegisterProps) => {
             <div className={cls.fieldGroup}>
                 <p>Фамилия</p>
                 <Input
-                    placeholder={"Введите вашу фамилию"}
+                    placeholder={"Введите фамилию"}
                     value={formData.lastName}
                     onChange={(e) => setFormData({...formData, lastName: e.target.value})}
                 />
@@ -40,24 +40,16 @@ const Register = (props: RegisterProps) => {
             <div className={cls.fieldGroup}>
                 <p>Имя</p>
                 <Input
-                    placeholder={"Введите ваше имя"}
+                    placeholder={"Введите имя"}
                     value={formData.firstName}
                     onChange={(e) => setFormData({...formData, firstName: e.target.value})}
-                />
-            </div>
-            <div className={cls.fieldGroup}>
-                <p>Токен приглашения</p>
-                <Input
-                    placeholder={"Введите ваш токен"}
-                    value={formData.inviteToken}
-                    onChange={(e) => setFormData({...formData, inviteToken: e.target.value})}
                 />
             </div>
             <div className={cls.fieldGroup}>
                 <p>Пароль</p>
                 <Input
                     type={"email"}
-                    placeholder={"Введите ваш email"}
+                    placeholder={"Введите email"}
                     value={formData.email}
                     onChange={(e) => setFormData({...formData, email: e.target.value})}
                 />
@@ -66,7 +58,7 @@ const Register = (props: RegisterProps) => {
                 <p>Пароль</p>
                 <Input
                     type={"password"}
-                    placeholder={"Введите ваш пароль"}
+                    placeholder={"Введите пароль"}
                     value={formData.password}
                     onChange={(e) => setFormData({...formData, password: e.target.value})}
                 />

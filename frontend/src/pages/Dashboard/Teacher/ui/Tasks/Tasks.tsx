@@ -4,6 +4,8 @@ import cls from './Tasks.module.scss'
 import PanelWithControl from "@shared/ui/PanelWithControl/PanelWithControl.tsx";
 import {Button} from "@shared/ui/Buttton/Button.tsx";
 import TasksTable from "@widgets/Dashboard/Teacher/TasksTable/TasksTable.tsx";
+import {useState} from "react";
+import CreateQuestionary from "@widgets/Dashboard/Teacher/CreateQuestionary/CreateQuestionary.tsx";
 
 interface TasksProps {
     classname?: string;
@@ -11,12 +13,21 @@ interface TasksProps {
 
 const Tasks = (props: TasksProps) => {
     const {classname = ""} = props;
+    const [isCreateView, setIsCreateView] = useState(true)
     return (
         <div className={cNames(cls.Tasks, {}, [classname])}>
-            <PanelWithControl title={"Управление тестами"}>
-               <Button>Создать тест</Button>
+            <PanelWithControl title={"Управление квизами"}>
+               <Button onClick={() => setIsCreateView(false)}>Список вопросов</Button>
+               <Button onClick={() => setIsCreateView(true)}>Создать тест</Button>
             </PanelWithControl>
-            <TasksTable/>
+            {isCreateView ? (
+                <div className={cls.wrapper}>
+                    <CreateQuestionary/>
+                </div>
+            ) : (
+                <TasksTable/>
+            )}
+
         </div>
     )
 }

@@ -21,6 +21,7 @@ import AdminTeachers from "@pages/Dashboard/Admin/ui/Teachers/AdminTeachers.tsx"
 import AdminUsers from "@pages/Dashboard/Admin/ui/Users/AdminUsers.tsx";
 import AdminStatistic from "@pages/Dashboard/Admin/ui/Statistic/AdminStatistic.tsx";
 import AdminProfile from "@pages/Dashboard/Admin/ui/Profile/AdminProfile.tsx";
+import UserPage from "@pages/UserPage/UserPage.tsx";
 
 
 
@@ -31,6 +32,10 @@ export const router = createBrowserRouter([
         element: <App />,
         children: [
             {index: true, element: <HomePage />},
+            {
+              path: "user",
+              element: <UserPage/>
+            },
             {
                 path: "course",
                 element: <CoursePage/>,

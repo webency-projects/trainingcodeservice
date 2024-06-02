@@ -6,7 +6,7 @@ import PanelWithControl from "@shared/ui/PanelWithControl/PanelWithControl.tsx";
 import {Button, ButtonTheme} from "@shared/ui/Buttton/Button.tsx";
 import Card from "@widgets/Dashboard/Teacher/Card/Card.tsx";
 import {CgRemoveR} from "react-icons/cg";
-import { LuCheckSquare } from "react-icons/lu";
+
 
 interface AdminTeachersProps {
     classname?: string;
@@ -37,11 +37,10 @@ const AdminTeachers = (props: AdminTeachersProps) => {
                     <table className={cls.table}>
                         <thead>
                             <tr>
-                                <th>id</th>
+                                <th>№</th>
                                 <th>Имя</th>
                                 <th>Фамилия</th>
                                 <th>Email</th>
-                                <th>Статус</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -51,9 +50,6 @@ const AdminTeachers = (props: AdminTeachersProps) => {
                                 <td>Иван</td>
                                 <td>Иванов</td>
                                 <td>ivan@ivan</td>
-                                <td>
-                                    <LuCheckSquare size={20} />
-                                </td>
                                 <td>
                                     <Button theme={ButtonTheme.CLEAR}>
                                         <CgRemoveR className={cls.deleteIcon} size={20} />
@@ -65,9 +61,6 @@ const AdminTeachers = (props: AdminTeachersProps) => {
                                 <td>Петр</td>
                                 <td>Петров</td>
                                 <td>petr@petr</td>
-                                <td>
-                                    <LuCheckSquare size={20} />
-                                </td>
                                 <td>
                                     <Button theme={ButtonTheme.CLEAR}>
                                         <CgRemoveR className={cls.deleteIcon} size={20} />

@@ -49,11 +49,17 @@ const CreateLecture = (props: CreateLectureProps) => {
     return (
         <div className={cNames(cls.CreateLecture, {}, [classname])}>
             <div className={cls.wrapper}>
-                <div className={cls.group}>
-                    <h2>Название лекции</h2>
-                    <Input
-                        onChange={e => setLecture({...lecture, title: e.target.value})}
-                        value={lecture.title}/>
+                <div className={cls.groupDouble}>
+                    <div>
+                        <h2>Название лекции</h2>
+                        <Input
+                            onChange={e => setLecture({...lecture, title: e.target.value})}
+                            value={lecture.title}/>
+                    </div>
+                    <div>
+                        <h2>Номер по порядку</h2>
+                        <Input type={"text"}/>
+                    </div>
                 </div>
                 <div className={cls.group}>
                     <h2>Описание</h2>

@@ -6,12 +6,12 @@
     scrollbar-width: thin;
 
     h1 {
-        color: var(--text-color-l);
+        color: var(--fg-main);
         font-size: 2rem;
         font-weight: 400;
     }
     h2 {
-        color: var(--text-color-l);
+        color: var(--fg-main);
         font-size: 1.5rem;
         font-weight: 400;
         margin-top: 2rem;
@@ -43,7 +43,7 @@
     }
     section {
         h2 {
-            color: var(--dark-lighter);
+            color: var(--fg-main);
             font-size: 1.5rem;
             font-weight: 400;
         }

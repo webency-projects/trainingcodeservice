@@ -5,7 +5,7 @@
 
 1. Create docker container for postgres database
 ```shell
-docker run --name codelineDB -p 5332:5432 -d -e POSTGRES_USER=codeline -e POSTGRES_PASSWORD=codeline postgres
+docker run --name codelineDB -p 5432:5432 -d -e POSTGRES_USER=nadezhda -e POSTGRES_PASSWORD=1234 postgres
 ```
 
 2. Create connect to docker container
@@ -16,12 +16,12 @@ docker exec -it codelineDB bash
 
 3. connect to postgres
 ```shell
-psql -U codeline
+psql -U nadezhda
 ```
 
 4. create database
 ```shell
-CREATE DATABASE codelinedb;
+CREATE DATABASE diploma;
 ```
 
 

@@ -5,7 +5,7 @@
         font-size: .875rem;
         text-transform: uppercase;
         font-weight: 600;
-        color: var(--text-color);
+        color: var(--fg-main);
         margin: 0.75rem 0;
     }
     .submenu {
@@ -16,7 +16,7 @@
                 align-items: center;
                 position: relative;
                 outline: 0 none;
-                color: var(--text-color-l);
+                color: var(--fg-main);
                 padding: 0.75rem 1rem;
                 border-radius: 12px;
                 cursor: pointer;
@@ -24,7 +24,7 @@
                 user-select: none;
                 transition: background-color 0.2s, box-shadow 0.2s;
                 &:hover {
-                    background-color: var(--dark-base);
+                    background-color: var(--fg-main-alt);
                 }
             }
         }

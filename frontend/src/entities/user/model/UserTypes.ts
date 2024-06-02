@@ -1,7 +1,6 @@
 export type UserRegister = {
     firstName: string;
     lastName: string;
-    inviteToken: string;
     email: string;
     password: string;
 }
